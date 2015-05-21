@@ -14,7 +14,7 @@ default: &default
   encoding: utf8
   pool: 5
   username: root
-  password:
+  password: <%= ENV['PROJECT-1STGEN_DATABASE_PASSWORD'] %>
   host: localhost
 
 development:
@@ -51,4 +51,3 @@ production:
   <<: *default
   database: project-1stgen_production
   username: project-1stgen
-  password: <%= ENV['PROJECT-1STGEN_DATABASE_PASSWORD'] %>

@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Project1stgen</title>
+  <title><%= yield(:title) %> | Project First-Gen</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
-<body>
-
-<%= yield %>
+<body class="<%= "devise" if devise_controller? %>">
+  <%= render "layouts/flash", message: notice, alert_type: "info" if notice.present? %>
+  <%= render "layouts/flash", message: alert, alert_type: "danger" if alert.present? %>
+  
+  <main class="container" role="main">
+    <%= yield %>
+  </main>
 
 </body>
 </html>
