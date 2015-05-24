@@ -1,7 +1,9 @@
 class RegistrationsController < Devise::RegistrationsController
   def create
     build_resource(sign_up_params)
+    
     resource.role = params[:program]
+    resource.role = :control if resource.undergrad? && rand >= 0.5
     
     if resource.save
       set_flash_message :notice, :signed_up if is_flashing_format?

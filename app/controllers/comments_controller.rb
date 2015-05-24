@@ -7,18 +7,13 @@ class CommentsController < ApplicationController
     end
     
     if comment.save
-      if request.xhr?
-        render comment
-      else
-        redirect_to article_path(article, anchor: "comment-#{comment.id}")
+      if RaffleService.undergrad(current_user)
+        flash.notice = "Congratulations on writing your 3rd question of this month! You have been entered into a raffle whose prize-winner will be announced at the end of the month."
       end
+      
+      redirect_to article_path(article, anchor: "comment-#{comment.id}")
     else
-      if request.xhr?
-        render partial: "comments/form", status: :unprocessable_entity,
-          locals: { article: article, comment: comment }
-      else
-        render "articles/show"
-      end
+      render "articles/show"
     end
   end
   

@@ -17,18 +17,13 @@ class RepliesController < ApplicationController
     end
     
     if reply.save
-      if request.xhr?
-        render reply
-      else
-        redirect_to article_path(reply.article, anchor: "comment-#{reply.id}")
+      if RaffleService.undergrad(current_user)
+        flash.notice = "Congratulations on writing your 3rd question of this month! You have been entered into a raffle whose prize-winner will be announced at the end of the month."
       end
+      
+      redirect_to article_path(reply.article, anchor: "comment-#{reply.id}")
     else
-      if request.xhr?
-        render partial: "replies/form", status: :unprocessable_entity,
-          locals: { comment: comment, reply: reply }
-      else
-        render :new
-      end
+      render :new
     end
   end
   

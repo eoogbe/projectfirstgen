@@ -26,15 +26,27 @@
       </header>
       <div class="collapse navbar-collapse" id="p1g-navbar-collapse">
         <ul class="navbar-nav nav">
-          <li class="<%= "active" if current_page?(articles_path) %>">
-            <%= link_to "Blogs", articles_path %>
-            <% if current_page?(articles_path) %>
+          <% if policy(Article.new).index? %>
+            <li class="<%= "active" if current_page?(articles_path) %>">
+              <%= link_to "Blogs", articles_path %>
+              <% if current_page?(articles_path) %>
+                <span class="sr-only">(current)</span>
+              <% end %>
+            </li>
+          <% end %>
+          <li class="<%= "active" if current_page?(new_comment_path) %>">
+            <%= link_to "Ask a Question", new_comment_path %>
+            <% if current_page?(new_comment_path) %>
               <span class="sr-only">(current)</span>
             <% end %>
           </li>
         </ul>
         <% if signed_in? %>
           <%= button_to "Log out", destroy_user_session_path, method: :delete, class: "btn btn-link navbar-right navbar-btn" %>
+        <% else %>
+          <span class="navbar-text navbar-right">
+            <%= link_to "Sign in", new_user_session_path, class: "navbar-link" %>
+          </span>
         <% end %>
       </div>
     </div>

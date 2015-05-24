@@ -1,6 +1,7 @@
 class ArticlesController < ApplicationController
   def index
     self.articles = Article.order(created_at: :desc).page(params[:page])
+    authorize articles
   end
   
   def new
@@ -15,6 +16,10 @@ class ArticlesController < ApplicationController
     authorize article
     
     if article.save
+      if RaffleService.grad(current_user)
+        flash.notice = "Congratulations on writing your 3rd blog post of this month! You have been entered into a raffle whose prize-winner will be announced at the end of the month."
+      end
+      
       redirect_to article
     else
       render :new
@@ -23,6 +28,7 @@ class ArticlesController < ApplicationController
   
   def show
     self.article = Article.friendly.find(params[:id])
+    authorize article
   end
   
   private

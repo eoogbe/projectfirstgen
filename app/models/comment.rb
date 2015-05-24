@@ -16,6 +16,6 @@ class Comment < ActiveRecord::Base
   end
   
   def paragraphs
-    @paragraphs ||= text.split("\n")
+    text.split(/[\r\n]+/)
   end
 end
