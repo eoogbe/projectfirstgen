@@ -1,13 +1,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title><%= yield(:title) %> | Project First-Gen</title>
+  <title>
+    <% if content_for?(:title) %><%= yield(:title) %> |<% end %>
+    Project First-Gen
+  </title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body class="<%= "devise" if devise_controller? %>">
+  <nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+      <header class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#p1g-navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <h1>
+          <%= link_to_unless_current content_tag(:span, "Project First-Gen", class: "navbar-brand"), root_path %>
+        </h1>
+      </header>
+      <div class="collapse navbar-collapse" id="p1g-navbar-collapse">
+        <ul class="navbar-nav nav">
+          <li class="<%= "active" if current_page?(articles_path) %>">
+            <%= link_to "Blogs", articles_path %>
+            <% if current_page?(articles_path) %>
+              <span class="sr-only">(current)</span>
+            <% end %>
+          </li>
+        </ul>
+        <% if signed_in? %>
+          <%= button_to "Log out", destroy_user_session_path, method: :delete, class: "btn btn-link navbar-right navbar-btn" %>
+        <% end %>
+      </div>
+    </div>
+  </nav>
   <%= render "layouts/flash", message: notice, alert_type: "info" if notice.present? %>
   <%= render "layouts/flash", message: alert, alert_type: "danger" if alert.present? %>
   

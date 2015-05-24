@@ -8,11 +8,32 @@
     <%= f.label :email, class: "control-label" %><br />
     <%= f.email_field :email, autofocus: true, class: "form-control" %>
   </div>
-
+  
+  <fieldset>
+    <legend class="control-label">Program</legend>
+    <div class="radio">
+      <%= label_tag :program_undergrad, class: "control-label" do %>
+        <%= radio_button_tag :program, :undergrad, resource.undergrad?, required: true %>
+        Undergraduate
+      <% end %>
+    </div>
+    <div class="radio">
+      <%= label_tag :program_grad, class: "control-label" do %>
+        <%= radio_button_tag :program, :grad, resource.grad?, required: true %>
+        Graduate
+      <% end %>
+    </div>
+  </fieldset>
+  
+  <div class="form-group">
+    <%= f.label :username, class: "control-label" %><br />
+    <%= f.text_field :username, class: "form-control" %>
+  </div>
+  
   <div class="form-group">
     <%= f.label :password, class: "control-label" %>
     <% if @validatable %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
+    <em class="hint">(<%= @minimum_password_length %> characters minimum)</em>
     <% end %><br />
     <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
   </div>
@@ -23,7 +44,7 @@
   </div>
 
   <div class="actions">
-    <%= f.submit "Sign up", class: "btn btn-default" %>
+    <%= f.submit "Sign up", class: "btn btn-primary" %>
   </div>
 <% end %>
 

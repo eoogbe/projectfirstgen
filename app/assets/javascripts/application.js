@@ -14,4 +14,6 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap/alert
+//= require bootstrap/collapse
+//= require local_time
 //= require_tree .

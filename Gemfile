@@ -41,3 +41,9 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin]
 gem 'devise'
 gem 'formtastic', '~> 3.0'
 gem 'bootstrap-sass', '~> 3.3.4'
+gem 'kaminari'
+gem 'friendly_id', '~> 5.1.0'
+gem 'formtastic-bootstrap'
+gem 'local_time'
+gem 'pundit'
+gem 'quiet_assets', group: :development

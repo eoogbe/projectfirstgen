@@ -1,0 +1,20 @@
+<article class="comment" id="comment-<%= comment.id %>">
+  <header>
+    <%= local_time comment.created_at %>
+    <h4><cite><%= comment.author_name %></cite> says:</h4>
+  </header>
+  <% comment.paragraphs.each do |text| %>
+    <p><%= text %></p>
+  <% end %>
+  <% if comment.root? %>
+    <% if comment.replies.present? %>
+      <section>
+        <h5 class="sr-only">Replies</h5>
+        <div class="replies">
+          <%= render comment.replies %>
+        </div>
+      </section>
+    <% end %>
+    <%= link_to "reply", new_comment_reply_path(comment), remote: true, class: "reply-link" %>
+  <% end %>
+</article>

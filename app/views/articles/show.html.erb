@@ -1,0 +1,33 @@
+<% provide(:title, article.title) %>
+<article class="article">
+  <header>
+    <h2><%= article.title %></h2>
+    <p>by <cite><%= article.author_name %></cite></p>
+    <p>posted <%= local_time article.created_at, "%B %e, %Y" %></p>
+  </header>
+  <% article.paragraphs.each do |text| %>
+    <p><%= text %></p>
+  <% end %>
+  <section>
+    <h3>Questions</h3>
+    <div id="comments">
+      <%= render article.root_comments %>
+    </div>
+    <section id="new-comment-sec">
+      <h4>Ask a Question</h4>
+      <%= render "comments/form", article: article, comment: comment || article.comments.build %>
+    </section>
+  </section>
+</article>
+<% if Article.count > 1 %>
+<nav>
+  <ul class="pager">
+    <% if article.prev_article %>
+      <li><%= link_to "Previous Blog", article.prev_article %></li>
+    <% end %>
+    <% if article.next_article %>
+      <li><%= link_to "Next Blog", article.next_article %></li>
+    <% end %>
+  </ul>
+</nav>
+<% end %>
