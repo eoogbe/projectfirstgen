@@ -17,3 +17,5 @@
 
 # Ignore Sass cache
 .sass-cache/
+
+credentials.txt

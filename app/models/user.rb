@@ -21,10 +21,10 @@ class User < ActiveRecord::Base
   end
   
   def num_current_articles
-    articles.where("created_at > ?", DateTime.now.month).count
+    articles.where("created_at > ?", DateTime.now.beginning_of_month).count
   end
   
   def num_current_comments
-    comments.where("created_at > ?", DateTime.now.month).count
+    comments.where("created_at > ?", DateTime.now.beginning_of_month).count
   end
 end
