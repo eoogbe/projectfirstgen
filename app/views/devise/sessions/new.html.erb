@@ -1,14 +1,14 @@
-<% provide(:title, "Log In") %>
-<h2>Log in</h2>
+<% provide(:title, "Sign In") %>
+<% provide(:heading, "Sign in") %>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+<%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { role: "form" }) do |f| %>
   <div class="form-group">
-    <%= f.label :login, class: "control-label" %><br />
+    <%= f.label :login, class: "control-label" %>
     <%= f.text_field :login, autofocus: true, class: "form-control" %>
   </div>
 
   <div class="form-group">
-    <%= f.label :password, class: "control-label" %><br />
+    <%= f.label :password, class: "control-label" %>
     <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
   </div>
 
@@ -21,7 +21,7 @@
   <% end -%>
 
   <div class="actions">
-    <%= f.submit "Log in", class: "btn btn-primary" %>
+    <%= f.submit "Sign in", class: "btn btn-primary" %>
   </div>
 <% end %>
 

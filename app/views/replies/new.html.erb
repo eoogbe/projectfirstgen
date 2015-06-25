@@ -1,4 +1,4 @@
 <% provide(:title, "Reply to #{comment.author_name}") %>
-<h2>Reply to <%= comment.author_name %></h2>
+
 <p><%= comment.text %></p>
 <%= render "replies/form", comment: comment, reply: reply %>

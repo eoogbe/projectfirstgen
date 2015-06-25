@@ -1,6 +1,7 @@
 <% provide(:title, "New Blog") %>
-<h2>New blog</h2>
-<%= semantic_form_for article do |f| %>
+<% provide(:heading, "New blog") %>
+
+<%= semantic_form_for article, html: { role: "form" } do |f| %>
   <%= f.inputs :title, :text %>
   <%= f.actions do %>
     <%= f.action :submit, button_html: { class: "btn btn-primary" } %>

@@ -1,5 +1,5 @@
 <% provide(:title, "Blogs") %>
-<h2>Blogs</h2>
+
 <%= link_to "New Blog", new_article_path, class: "btn btn-primary" if policy(articles).new? %>
 <%= paginate articles %>
 <%= render articles %>

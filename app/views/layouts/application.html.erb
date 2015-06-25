@@ -5,58 +5,36 @@
     <% if content_for?(:title) %><%= yield(:title) %> |<% end %>
     Project First-Gen
   </title>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans|Open+Sans+Condesnsed:300' rel='stylesheet'>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
-<body class="<%= "devise" if devise_controller? %>">
-  <nav class="navbar navbar-default" role="navigation">
-    <div class="container-fluid">
-      <header class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#p1g-navbar-collapse">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <h1>
-          <%= link_to_unless_current content_tag(:span, "Project First-Gen", class: "navbar-brand"), root_path %>
-        </h1>
-      </header>
-      <div class="collapse navbar-collapse" id="p1g-navbar-collapse">
-        <ul class="navbar-nav nav">
-          <% if policy(Article.new).index? %>
-            <li class="<%= "active" if current_page?(articles_path) %>">
-              <%= link_to "Blogs", articles_path %>
-              <% if current_page?(articles_path) %>
-                <span class="sr-only">(current)</span>
-              <% end %>
-            </li>
-          <% end %>
-          <li class="<%= "active" if current_page?(new_comment_path) %>">
-            <%= link_to "Ask a Question", new_comment_path %>
-            <% if current_page?(new_comment_path) %>
-              <span class="sr-only">(current)</span>
-            <% end %>
-          </li>
-        </ul>
-        <% if signed_in? %>
-          <%= button_to "Log out", destroy_user_session_path, method: :delete, class: "btn btn-link navbar-right navbar-btn" %>
-        <% else %>
-          <span class="navbar-text navbar-right">
-            <%= link_to "Sign in", new_user_session_path, class: "navbar-link" %>
-          </span>
-        <% end %>
-      </div>
+<body class="container <%= "devise" if devise_controller? %>">
+  <a href="#main" class="sr-only sr-only-focusable">Skip to main content</a>
+  <header id="site-header">
+    <h1>
+      <%= link_to_unless_current root_path do %>
+        <%= image_tag "PFG-Logo-trans-300x64.png", alt: "Project First-Gen", size: "300x64" %>
+      <% end %>
+    </h1>
+    <div id="current-user">
+      <% if signed_in? %>
+        Hi, <%= link_to current_user.username, edit_user_registration_path(current_user) %> |
+        <%= button_to "Log out", destroy_user_session_path, method: :delete, class: "btn-link" %>
+      <% else %>
+        <%= link_to "Sign in", new_user_session_path %>
+      <% end %>
     </div>
-  </nav>
+  </header>
   <%= render "layouts/flash", message: notice, alert_type: "info" if notice.present? %>
   <%= render "layouts/flash", message: alert, alert_type: "danger" if alert.present? %>
   
-  <main class="container" role="main">
-    <%= yield %>
-  </main>
-
+  <div class="page">
+    <%= render "layouts/main_nav" %>
+    <main role="main" id="main" tabindex="0">
+      <%= yield %>
+    </main>
+  </div>
 </body>
 </html>

@@ -1,10 +1,10 @@
 <% provide(:title, article.title) %>
+
 <article class="article">
-  <header>
-    <h2><%= article.title %></h2>
+  <footer>
     <p>by <cite><%= article.author_name %></cite></p>
     <p>posted <%= local_time article.created_at, "%B %e, %Y" %></p>
-  </header>
+  </footer>
   <% article.paragraphs.each do |text| %>
     <p><%= text %></p>
   <% end %>
