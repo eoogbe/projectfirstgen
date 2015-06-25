@@ -8,9 +8,7 @@ Rails.application.routes.draw do
   resources :comments, only: :new do
     resources :replies, only: [:new, :create]
   end
-  
-  resources :users, only: :show, param: :username
-  
+
   get :resources, to: "home#resources", as: :resources
   
   root "home#index"

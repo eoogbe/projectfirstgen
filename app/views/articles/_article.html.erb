@@ -4,8 +4,9 @@
     <p>by <cite><%= article.author_name %></cite></p>
     <p>posted <%= local_time article.created_at, "%B %e, %Y" %></p>
   </header>
-  <p>
-    <%= article.paragraphs.first %>
-    <%= link_to "See more", article %>
-  </p>
+  <div class="truncate lines-6">
+    <% article.paragraphs.each do |text| %>
+      <p><%= text %></p>
+    <% end %>
+  </div>
 </section>

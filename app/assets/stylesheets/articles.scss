@@ -1,10 +1,40 @@
-.article footer {
-    margin-bottom: 12px;
-    p {
-        opacity: 0.8;
-        margin-bottom: 0;
+/* truncation adapted from http://stackoverflow.com/a/17030071/830988 */
+.lines-6 {
+    height: 7.4em;
+}
+
+.truncate {
+    overflow: hidden;
+    position: relative;
+    &:after {
+        content: "";
+        height: 1em;
+        display: block;
+        width: 100%;
+        position: absolute;
+        background-color: white;
+        opacity: 0.76;
+        bottom: 0;
     }
+}
+
+.article {
     cite {
         font-style: normal;
+    }
+    header,
+    footer {
+        margin-bottom: 12px;
+        p {
+            opacity: 0.8;
+            margin-bottom: 0;
+            display: inline;
+            &:after {
+                content: " \2022";
+            }
+            &:last-of-type:after {
+                content: "";
+            }
+        }
     }
 }

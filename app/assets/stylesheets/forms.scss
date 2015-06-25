@@ -1,0 +1,26 @@
+.button_to,
+.button_to > div {
+    display: inline;
+}
+
+.form-control {
+    background-color: #fbfbfb;
+    font-size: 14px;
+}
+
+.control-label {
+    font-size: 14px;
+}
+
+.hint {
+    font-size: 12px;
+}
+
+legend {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 0;
+    font-weight: bold;
+    font-size: 14px;
+    border-bottom: 0;
+}

@@ -9,6 +9,24 @@
     <%= f.email_field :email, autofocus: true, class: "form-control" %>
   </div>
   
+  <div class="form-group">
+    <%= f.label :password, class: "control-label" %>
+    <% if @validatable %>
+    <em class="hint">(<%= @minimum_password_length %> characters minimum)</em>
+    <% end %><br />
+    <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :password_confirmation, class: "control-label" %>
+    <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control" %>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :name, class: "control-label" %>
+    <%= f.text_field :name, class: "form-control" %>
+  </div>
+
   <fieldset>
     <legend class="control-label">Program</legend>
     <div class="radio">
@@ -25,24 +43,6 @@
     </div>
   </fieldset>
   
-  <div class="form-group">
-    <%= f.label :username, class: "control-label" %>
-    <%= f.text_field :username, class: "form-control" %>
-  </div>
-  
-  <div class="form-group">
-    <%= f.label :password, class: "control-label" %>
-    <% if @validatable %>
-    <em class="hint">(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :password_confirmation, class: "control-label" %>
-    <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control" %>
-  </div>
-
   <div class="actions">
     <%= f.submit "Sign up", class: "btn btn-primary" %>
   </div>

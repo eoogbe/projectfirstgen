@@ -20,7 +20,7 @@
     </h1>
     <div id="current-user">
       <% if signed_in? %>
-        Hi, <%= link_to current_user.username, edit_user_registration_path(current_user) %> |
+        Hi, <%= link_to current_user.name, edit_user_registration_path(current_user) %> |
         <%= button_to "Log out", destroy_user_session_path, method: :delete, class: "btn-link" %>
       <% else %>
         <%= link_to "Sign in", new_user_session_path %>
