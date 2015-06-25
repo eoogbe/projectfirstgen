@@ -10,4 +10,8 @@ class ArticleAuthorizer < ApplicationAuthorizer
   def show?
     user && !user.control?
   end
+  
+  def search?
+    index?
+  end
 end

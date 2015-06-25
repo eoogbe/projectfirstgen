@@ -1,16 +1,14 @@
-<nav role="navigation">
+<nav id="main-nav" role="navigation">
   <header>
     <h2 class="pull-left"><%= content_for?(:heading) ? yield(:heading) : yield(:title) %></h2>
-    <div>
-      <button type="button" class="navbar-toggle collapsed pull-right" data-toggle="collapse" data-target="#p1g-navbar-collapse">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-    </div>
+    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#p1g-nav-collapse">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
   </header>
-  <div class="collapse navbar-collapse" id="p1g-navbar-collapse">
+  <div class="collapse navbar-collapse" id="p1g-nav-collapse">
     <ul class="nav nav-pills pull-right">
       <li class="<%= "active" if current_page?(root_path) %>">
         <%= link_to "About", root_path %>

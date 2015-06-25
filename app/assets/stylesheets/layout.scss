@@ -36,6 +36,67 @@ h2 {
     border-radius: 3px;
 }
 
+#main-nav {
+    position: relative;
+}
+
+.navbar-toggle {
+    background-color: #27737f;
+    margin-right: 0;
+    &[aria-expanded="true"] {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+    .icon-bar {
+        background-color: #fff;
+    }
+}
+
+.nav-pills > li.active > a {
+    background-color: #27737f;
+    &:hover,
+    &:focus,
+    &:active {
+        background-color: #27737f;
+    }
+}
+
+.navbar-collapse.in {
+    position: absolute;
+    right: 0;
+    top: 42px;
+    background-color: #27737f;
+    z-index: 1;
+    padding: 0;
+    border-radius: 4px;
+    border-top-right-radius: 0;
+    box-shadow: none;
+    li {
+        float: none;
+        margin-left: 0;
+    }
+    a {
+        background-color: transparent;
+        color: #fff;
+        &:hover,
+        &:focus,
+        &:active {
+            background-color: darken(#27737f, 5%);
+            outline: none;
+        }
+    }
+    .nav-pills > li.active > a {
+        background-color: transparent;
+        color: #fff;
+        &:hover,
+        &:focus,
+        &:active {
+            background-color: darken(#27737f, 5%);
+            outline: none;
+        }
+    }
+}
+
 main:focus {
     outline: none;
 }

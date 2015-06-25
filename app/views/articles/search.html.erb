@@ -1,0 +1,8 @@
+<% provide(:title, "Search Results") %>
+<% provide(:heading) do %>
+  Search results for <span class="text-muted"><%= params[:q] %></span>
+<% end %>
+
+<%= paginate articles %>
+<%= render articles %>
+<%= paginate articles %>

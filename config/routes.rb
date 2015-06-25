@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   
   resources :articles, except: [:edit, :update, :destroy] do
     resources :comments, only: :create
+    get :search, on: :collection
   end
   
   resources :comments, only: :new do

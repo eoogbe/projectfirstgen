@@ -32,9 +32,14 @@
   
   <div class="page">
     <%= render "layouts/main_nav" %>
-    <main role="main" id="main" tabindex="0">
-      <%= yield %>
-    </main>
+    <div class="row">
+      <main class="col-xs-12<%= " col-sm-8" if policy(Article).index? %>" role="main" id="main" tabindex="0">
+        <%= yield %>
+      </main>
+      <% if policy(Article).index? %>
+        <%= render "layouts/sidebar" %>
+      <% end %>
+    </div>
   </div>
 </body>
 </html>

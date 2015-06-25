@@ -31,6 +31,18 @@ class ArticlesController < ApplicationController
     authorize article
   end
   
+  def search
+    return redirect_to articles_path if params[:q].blank?
+    
+    authorize Article.new
+    self.articles = Article.search do
+      fulltext params[:q] do
+        boost_fields title: 2.0
+      end
+      paginate page: params[:page], per_page: Kaminari.config.default_per_page
+    end.results
+  end
+  
   private
   helper_attr :articles, :article
   helper_attr :comment  # Needed for a nil check

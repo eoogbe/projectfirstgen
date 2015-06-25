@@ -46,4 +46,10 @@ gem 'friendly_id', '~> 5.1.0'
 gem 'formtastic-bootstrap'
 gem 'local_time'
 gem 'pundit'
-gem 'quiet_assets', group: :development
+gem 'sunspot_rails'
+gem 'progress_bar'
+
+group :development do
+  gem 'quiet_assets'
+  gem 'sunspot_solr'
+end

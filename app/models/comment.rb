@@ -7,6 +7,10 @@ class Comment < ActiveRecord::Base
   has_one :parent, through: :reply_parent, source: :comment
   validates_presence_of :author, :article, :text
   
+  def self.recent
+    order(created_at: :desc).limit(5)
+  end
+  
   def author_name
     author.username
   end

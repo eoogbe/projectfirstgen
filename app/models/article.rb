@@ -4,6 +4,11 @@ class Article < ActiveRecord::Base
   belongs_to :author, class_name: "User"
   has_many :comments
   validates_presence_of :author, :title, :text
+  searchable { text :title, :text }
+  
+  def self.recent
+    order(created_at: :desc).limit(5)
+  end
   
   def root_comments
     comments
