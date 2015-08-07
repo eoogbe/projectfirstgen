@@ -1,3 +1,27 @@
 .btn-primary {
-    background-color: #27737f;
+  background-color: #27737f;
+}
+
+/* truncation adapted from http://stackoverflow.com/a/17030071/830988 */
+.lines-3 {
+  height: 3.7em;
+}
+
+.lines-6 {
+  height: 7.4em;
+}
+
+.truncate {
+  overflow: hidden;
+  position: relative;
+  &:after {
+    content: "";
+    height: 1em;
+    display: block;
+    width: 100%;
+    position: absolute;
+    background-color: white;
+    opacity: 0.76;
+    bottom: 0;
+  }
 }

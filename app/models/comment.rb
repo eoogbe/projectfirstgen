@@ -6,19 +6,20 @@ class Comment < ActiveRecord::Base
   has_one :reply_parent, foreign_key: :reply_id, class_name: "CommentReply"
   has_one :parent, through: :reply_parent, source: :comment
   validates_presence_of :author, :article, :text
-  
+  delegate :title, to: :article, prefix: true
+
   def self.recent
     order(created_at: :desc).limit(5)
   end
-  
+
   def author_name
     author.username
   end
-  
+
   def root?
     parent.nil?
   end
-  
+
   def paragraphs
     text.split(/[\r\n]+/)
   end

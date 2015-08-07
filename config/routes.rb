@@ -1,19 +1,22 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: "registrations" }
-  
+
   resources :articles, except: [:edit, :update, :destroy] do
     resources :comments, only: :create
     get :search, on: :collection
   end
-  
+
   resources :comments, only: :new do
     resources :replies, only: [:new, :create]
   end
 
+  resources :raffle_entries, only: :create
+  resource :dashboard, only: :show
+
   get :resources, to: "home#resources", as: :resources
-  
+
   root "home#index"
-  
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

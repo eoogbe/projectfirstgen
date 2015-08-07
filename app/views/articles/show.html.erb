@@ -3,7 +3,12 @@
 <article class="article">
   <footer>
     <p>by <cite><%= article.author_name %></cite></p>
-    <p>posted <%= local_time article.created_at, "%B %e, %Y" %></p>
+    <p>
+      posted
+      <%= time_tag article.created_at do %>
+        <%= local_time article.created_at, "%B %e, %Y" %>
+      <% end %>
+    </p>
   </footer>
   <% article.paragraphs.each do |text| %>
     <p><%= text %></p>

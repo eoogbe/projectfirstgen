@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  NUM_PUBLICATIONS_FOR_RAFFLE = 3
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -6,22 +7,35 @@ class User < ActiveRecord::Base
   enum role: [:undergrad, :grad, :control]
   has_many :articles, foreign_key: :author_id
   has_many :comments, foreign_key: :author_id
+  has_many :raffle_entries
   validates_presence_of :role, :name
-  
-  def num_current_articles
-    articles.where("created_at > ?", DateTime.now.beginning_of_month).count
+
+  def current_articles
+    articles.where("created_at > ?", DateTime.now.beginning_of_month)
   end
-  
-  def num_current_comments
-    comments.where("created_at > ?", DateTime.now.beginning_of_month).count
+
+  def current_comments
+    comments.where("created_at > ?", DateTime.now.beginning_of_month)
   end
-  
+
+  def current_raffle_entry
+    raffle_entries.find_by("created_at > ?", DateTime.now.beginning_of_month)
+  end
+
+  def article_raffle_eligible?
+    grad? && current_articles.count >= NUM_PUBLICATIONS_FOR_RAFFLE && current_raffle_entry.nil?
+  end
+
+  def comment_raffle_eligible?
+    undergrad? && current_comments.count >= NUM_PUBLICATIONS_FOR_RAFFLE && current_raffle_entry.nil?
+  end
+
   def username
     @username ||= "#{role_name}#{id}"
   end
-  
+
   private
-  
+
   def role_name
     case role
     when "undergrad", "control" then "UGRAD"

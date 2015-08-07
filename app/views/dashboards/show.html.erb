@@ -1,0 +1,63 @@
+<% provide(:title, "Dashboard") %>
+
+<section>
+  <h3>Monthly Activity</h3>
+  <% if policy(Article.new).create? %>
+    <section>
+      <h4>Blogs</h4>
+      <% if current_user.current_articles.exists? %>
+        <ul class="list-unstyled">
+          <% current_user.current_articles.each do |article| %>
+            <li>
+              <%= link_to article.title, article %>
+              <%= time_tag article.created_at do %>
+                <%= local_time article.created_at, "%B %e, %Y" %>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+        <% if current_user.article_raffle_eligible? %>
+          <p>
+            You are eligible for our monthly raffle.
+            <%= link_to "Enter raffle", raffle_entries_path, method: :post %>
+          </p>
+        <% end %>
+      <% else %>
+        <p>You have not written any blogs this month</p>
+      <% end %>
+      <p><%= link_to "New Blog", new_article_path %></p>
+    </section>
+  <% end %>
+  <section>
+    <h4>Questions</h4>
+    <% if current_user.current_comments.exists? %>
+      <ul class="list-unstyled">
+        <% current_user.current_comments.each do |comment| %>
+          <li>
+            <p class="text-muted">
+              On
+              <%= link_to comment.article_title, article_path(comment.article, anchor: "comment-#{comment.id}") %>
+              at
+              <%= time_tag comment.created_at do %>
+                <%= local_time comment.created_at %>
+              <% end %>
+            </p>
+            <div class="lines-3 truncate">
+              <% comment.paragraphs.each do |text| %>
+                <p><%= text %></p>
+              <% end %>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+      <% if current_user.comment_raffle_eligible? %>
+        <p>
+          You are eligible for our monthly raffle.
+          <%= button_to "Enter raffle", raffle_entries_path, class: "btn-link" %>
+        </p>
+      <% end %>
+    <% else %>
+      <p>You have not asked any questions this month</p>
+    <% end %>
+  </section>
+</section>

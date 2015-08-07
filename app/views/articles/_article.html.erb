@@ -2,7 +2,12 @@
   <header>
     <h3><%= link_to article.title, article %></h3>
     <p>by <cite><%= article.author_name %></cite></p>
-    <p>posted <%= local_time article.created_at, "%B %e, %Y" %></p>
+    <p>
+      posted
+      <%= time_tag article.created_at do %>
+        <%= local_time article.created_at, "%B %e, %Y" %>
+      <% end %>
+    </p>
   </header>
   <div class="truncate lines-6">
     <% article.paragraphs.each do |text| %>

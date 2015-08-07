@@ -28,3 +28,6 @@ en:
     actions:
       comment: Post Question
       reply: Post Reply
+  admin_mailer:
+    raffle_entry:
+      subject: Raffle entry request

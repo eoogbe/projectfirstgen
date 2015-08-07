@@ -14,14 +14,29 @@
   <a href="#main" class="sr-only sr-only-focusable">Skip to main content</a>
   <header id="site-header">
     <h1>
-      <%= link_to_unless_current root_path do %>
+      <%= link_to root_path do %>
         <%= image_tag "PFG-Logo-trans-300x64.png", alt: "Project First-Gen", size: "300x64" %>
       <% end %>
     </h1>
     <div id="current-user">
       <% if signed_in? %>
-        Hi, <%= link_to current_user.name, edit_user_registration_path(current_user) %> |
-        <%= button_to "Log out", destroy_user_session_path, method: :delete, class: "btn-link" %>
+        <div class="dropdown">
+          <button
+              class="btn-link dropdown-toggle"
+              type="button"
+              id="current-user-dropdown-toggle"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="true"
+          >
+            Hi, <%= current_user.name %> <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="current-user-dropdown-toggle">
+            <li role="presentation"><%= link_to "Dashboard", dashboard_path %></li>
+            <li role="presentation"><%= link_to "Account Settings", edit_user_registration_path %></li>
+            <li role="presentation"><%= link_to "Log out", destroy_user_session_path, method: :delete %></li>
+          </ul>
+        </div>
       <% else %>
         <%= link_to "Sign in", new_user_session_path %>
       <% end %>
@@ -29,7 +44,13 @@
   </header>
   <%= render "layouts/flash", message: notice, alert_type: "info" if notice.present? %>
   <%= render "layouts/flash", message: alert, alert_type: "danger" if alert.present? %>
-  
+  <% if flash[:raffle] %>
+    <%= render layout: "layouts/flash", locals: { alert_type: "info" } do %>
+      You are eligible for our monthly raffle!
+      <%= button_to "Enter raffle", raffle_entries_path, class: "btn-link" %>
+    <% end %>
+  <% end %>
+
   <div class="page">
     <%= render "layouts/main_nav" %>
     <div class="row">

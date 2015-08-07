@@ -1,6 +1,8 @@
 <article class="comment" id="comment-<%= comment.id %>">
   <header>
-    <%= local_time comment.created_at %>
+    <%= time_tag comment.created_at do %>
+      <%= local_time comment.created_at %>
+    <% end %>
     <h4><cite><%= comment.author_name %></cite> says:</h4>
   </header>
   <% comment.paragraphs.each do |text| %>
