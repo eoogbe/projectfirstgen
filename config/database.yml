@@ -1,25 +1,14 @@
-# MySQL.  Versions 5.0+ are recommended.
-#
-# Install the MYSQL driver
-#   gem install mysql2
-#
-# Ensure the MySQL gem is defined in your Gemfile
-#   gem 'mysql2'
-#
-# And be sure to use new-style password hashing:
-#   http://dev.mysql.com/doc/refman/5.0/en/old-client.html
-#
 default: &default
-  adapter: mysql2
+  adapter: postgresql
   encoding: utf8
   pool: 5
-  username: root
-  password: <%= ENV['PROJECT-1STGEN_DATABASE_PASSWORD'] %>
-  host: localhost
 
 development:
   <<: *default
   database: project-1stgen_development
+  username: postgres
+  password: <%= ENV['PROJECT-1STGEN_DATABASE_PASSWORD'] %>
+  host: localhost
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -27,6 +16,13 @@ development:
 test:
   <<: *default
   database: project-1stgen_test
+  username: postgres
+  password: <%= ENV['PROJECT-1STGEN_DATABASE_PASSWORD'] %>
+  host: localhost
+
+staging:
+  <<: *default
+  url: <%= ENV['DATABASE_URL'] %>
 
 # As with config/secrets.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -49,5 +45,4 @@ test:
 #
 production:
   <<: *default
-  database: project-1stgen_production
-  username: project-1stgen
+  url: <%= ENV['DATABASE_URL'] %>
