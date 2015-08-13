@@ -11,9 +11,10 @@ class RepliesController < ApplicationController
   def create
     self.comment = Comment.find(params[:comment_id])
     self.reply = Comment.new(reply_params) do |c|
-      c.parent = comment
       c.author = current_user
+      c.parent = comment
       c.article = comment.article
+      c.status = current_user.admin? ? :approved : :pending
     end
 
     if reply.save

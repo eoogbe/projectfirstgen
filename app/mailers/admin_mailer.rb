@@ -1,5 +1,5 @@
 class AdminMailer < ActionMailer::Base
-  default from: "nrgracia@gmail.com"
+  default from: "projectfirstgen@gmail.com"
 
   # Subject can be set in your I18n file at config/locales/en.yml
   # with the following lookup:
@@ -9,6 +9,6 @@ class AdminMailer < ActionMailer::Base
   def raffle_entry user
     @user = user
 
-    mail to: "nrgracia@gmail.com"
+    mail to: "nrgracia@stanford.edu"
   end
 end

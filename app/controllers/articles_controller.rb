@@ -1,6 +1,8 @@
 class ArticlesController < ApplicationController
   def index
-    self.articles = Article.order(created_at: :desc).page(params[:page])
+    self.articles = policy_scope(Article)
+      .order(created_at: :desc)
+      .page(params[:page])
     authorize articles
   end
 
@@ -12,6 +14,7 @@ class ArticlesController < ApplicationController
   def create
     self.article = Article.new(article_params) do |a|
       a.author = current_user
+      a.status = current_user.admin? ? :approved : :pending
     end
     authorize article
 
@@ -24,16 +27,40 @@ class ArticlesController < ApplicationController
     end
   end
 
+  def edit
+    self.article = Article.friendly.find(params[:id])
+    authorize article
+  end
+
+  def update
+    self.article = Article.friendly.find(params[:id])
+    authorize article
+
+    if article.update(article_params)
+      redirect_to article
+    else
+      render :edit
+    end
+  end
+
   def show
     self.article = Article.friendly.find(params[:id])
     authorize article
+  end
+
+  def destroy
+    article = Article.friendly.find(params[:id])
+    authorize article
+
+    article.destroy
+    redirect_to dashboard_path
   end
 
   def search
     return redirect_to articles_path if params[:q].blank?
 
     authorize Article.new
-    self.articles = Article.search do
+    self.articles = policy_scope(Article).search do
       fulltext params[:q] do
         boost_fields title: 2.0
       end

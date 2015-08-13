@@ -5,14 +5,15 @@
   header,
   footer {
     margin-bottom: 12px;
-    p {
+    p,
+    form {
       opacity: 0.8;
       margin-bottom: 0;
-      display: inline;
+      display: inline-block;
       &:after {
         content: " \2022";
       }
-      &:last-of-type:after {
+      &:last-child:after {
         content: "";
       }
     }

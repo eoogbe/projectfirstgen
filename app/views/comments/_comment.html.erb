@@ -1,10 +1,29 @@
 <article class="comment" id="comment-<%= comment.id %>">
   <header>
-    <%= time_tag comment.created_at do %>
-      <%= local_time comment.created_at %>
-    <% end %>
+    <div>
+      <p>
+        <%= time_tag comment.created_at do %>
+          <%= local_time comment.created_at %>
+        <% end %>
+      </p>
+      <% if policy(comment).update? %>
+        <p><%= link_to "edit", edit_comment_path(comment) %></p>
+      <% end %>
+      <% if policy(comment).approve? %>
+        <%= button_to "approve", comment_approval_path(comment), class: "btn-link" %>
+      <% end %>
+      <% if policy(comment).destroy? %>
+        <%= button_to "delete", comment, method: :delete, data: { confirm: "Are you sure?" }, class: "btn-link" %>
+      <% end %>
+    </div>
     <h4><cite><%= comment.author_name %></cite> says:</h4>
   </header>
+  <% if comment.pending? %>
+    <div class="alert alert-warning">
+      This question is awaiting approval from an admin. It can only be seen by
+      the author and admins.
+    </div>
+  <% end %>
   <% comment.paragraphs.each do |text| %>
     <p><%= text %></p>
   <% end %>

@@ -1,5 +1,26 @@
 <% provide(:title, "Dashboard") %>
 
+<% if current_user.admin? %>
+  <section>
+    <h3>At a glance</h3>
+    <div class="row">
+      <p class="col-sm-6">
+        <%= link_to "#{pluralize(Article.pending.count, "blog")} pending approval", admin_articles_path %>
+      </p>
+      <p class="col-sm-6">
+        <%= link_to "#{pluralize(Comment.pending.count, "question")} pending approval", admin_comments_path %>
+      </p>
+    </div>
+    <div class="row">
+      <p class="col-sm-6">
+        <%= link_to "#{pluralize(Comment.unanswered.count, "question")} unanswered", admin_comments_path %>
+      </p>
+      <p class="col-sm-6">
+        <%= link_to pluralize(User.count, "user"), admin_users_path %>
+      </p>
+    </div>
+  </section>
+<% end %>
 <section>
   <h3>Monthly Activity</h3>
   <% if policy(Article.new).create? %>

@@ -21,13 +21,20 @@
 
 en:
   activerecord:
+    models:
+      article: Blog
+      comment: Question
     attributes:
       user:
         role: Program
   formtastic:
     actions:
-      comment: Post Question
-      reply: Post Reply
+      article:
+        create: Post Blog
+      comment:
+        create: Post Question
+      reply:
+        create: Post Reply
   admin_mailer:
     raffle_entry:
       subject: Raffle entry request

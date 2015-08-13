@@ -1,4 +1,17 @@
 class ApplicationAuthorizer
+  class Scope
+    attr_reader :user, :scope
+
+    def initialize user, scope
+      @user = user
+      @scope = scope
+    end
+
+    def resolve
+      scope
+    end
+  end
+
   attr_reader :user, :record
 
   def initialize user, record
@@ -38,16 +51,9 @@ class ApplicationAuthorizer
     Pundit.policy_scope!(user, record.class)
   end
 
-  class Scope
-    attr_reader :user, :scope
+  private
 
-    def initialize user, scope
-      @user = user
-      @scope = scope
-    end
-
-    def resolve
-      scope
-    end
+  def admin?
+    user && user.admin?
   end
 end

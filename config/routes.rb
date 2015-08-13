@@ -1,19 +1,27 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: "registrations" }
 
-  resources :articles, except: [:edit, :update, :destroy] do
+  resources :articles do
     resources :comments, only: :create
+    resource :approval, only: :create, module: :articles
     get :search, on: :collection
   end
 
-  resources :comments, only: :new do
+  resources :comments, except: [:create, :show, :index] do
     resources :replies, only: [:new, :create]
+    resource :approval, only: :create, module: :comments
   end
 
   resources :raffle_entries, only: :create
   resource :dashboard, only: :show
 
   get :resources, to: "home#resources", as: :resources
+
+  namespace :admin do
+    resources :articles, only: :index
+    resources :comments, only: :index
+    resources :users, only: :index
+  end
 
   root "home#index"
 

@@ -11,18 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150807055235) do
+ActiveRecord::Schema.define(version: 20150810181553) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "articles", force: true do |t|
-    t.string   "title",      null: false
-    t.text     "text",       null: false
-    t.string   "slug",       null: false
-    t.integer  "author_id",  null: false
+    t.string   "title",                  null: false
+    t.text     "text",                   null: false
+    t.string   "slug",                   null: false
+    t.integer  "author_id",              null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "status",     default: 0
   end
 
   add_index "articles", ["author_id"], name: "index_articles_on_author_id", using: :btree
@@ -37,11 +38,12 @@ ActiveRecord::Schema.define(version: 20150807055235) do
   add_index "comment_replies", ["comment_id"], name: "index_comment_replies_on_comment_id", using: :btree
 
   create_table "comments", force: true do |t|
-    t.text     "text",       null: false
-    t.integer  "author_id",  null: false
-    t.integer  "article_id", null: false
+    t.text     "text",                   null: false
+    t.integer  "author_id",              null: false
+    t.integer  "article_id",             null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "status",     default: 0
   end
 
   add_index "comments", ["article_id"], name: "index_comments_on_article_id", using: :btree
@@ -83,9 +85,11 @@ ActiveRecord::Schema.define(version: 20150807055235) do
     t.datetime "updated_at"
     t.integer  "role",                   default: 0,  null: false
     t.string   "name"
+    t.string   "username"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 
 end

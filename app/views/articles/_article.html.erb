@@ -9,6 +9,12 @@
       <% end %>
     </p>
   </header>
+  <% if article.pending? %>
+    <div class="alert alert-warning">
+      This blog is awaiting approval from an admin. It can only be seen by
+      the author and admins.
+    </div>
+  <% end %>
   <div class="truncate lines-6">
     <% article.paragraphs.each do |text| %>
       <p><%= text %></p>

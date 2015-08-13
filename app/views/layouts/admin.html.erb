@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>
+    <% if content_for?(:title) %><%= yield(:title) %> |<% end %>
+    Project First-Gen
+  </title>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans|Open+Sans+Condesnsed:300' rel='stylesheet'>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body class="container">
+  <a href="#main" class="sr-only sr-only-focusable">Skip to main content</a>
+  <header id="site-header">
+    <h1>
+      <%= link_to root_path do %>
+        <%= image_tag "PFG-Logo-trans-300x64.png", alt: "Project First-Gen", size: "300x64" %>
+      <% end %>
+    </h1>
+    <div id="current-user">
+      <div class="dropdown">
+        <button
+            class="btn-link dropdown-toggle"
+            type="button"
+            id="current-user-dropdown-toggle"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="true"
+        >
+          Hi, <%= current_user.name %> <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="current-user-dropdown-toggle">
+          <li role="presentation"><%= link_to "Dashboard", dashboard_path %></li>
+          <li role="presentation"><%= link_to "Account Settings", edit_user_registration_path %></li>
+          <li role="presentation"><%= link_to "Log out", destroy_user_session_path, method: :delete %></li>
+        </ul>
+      </div>
+    </div>
+  </header>
+  <%= render "layouts/flash", message: notice, alert_type: "info" if notice.present? %>
+  <%= render "layouts/flash", message: alert, alert_type: "danger" if alert.present? %>
+
+  <div class="page">
+    <%= render "layouts/main_nav" %>
+    <main role="main" id="main" tabindex="0">
+      <%= yield %>
+    </main>
+  </div>
+</body>
+</html>

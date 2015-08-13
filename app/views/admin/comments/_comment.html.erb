@@ -1,0 +1,27 @@
+<tr class="<%= 'bold-row' if comment.old_unanswered? %>">
+  <td><%= comment.author_name %></td>
+  <td><%= comment.status %></td>
+  <td class="lines-6 truncate">
+    <% comment.paragraphs.each do |text| %>
+      <p><%= text %></p>
+    <% end %>
+  </td>
+  <td><%= link_to comment.article_title, article_path(comment.article, anchor: "comment-#{comment.id}") %></td>
+  <td class="text-right">
+    <% if comment.root? %>
+      <%= link_to comment.replies.count, new_comment_reply_path(comment) %>
+    <% end %>
+  </td>
+  <td>
+    <%= time_tag comment.created_at do %>
+      <%= local_time comment.created_at %>
+    <% end %>
+  </td>
+  <td>
+    <%= link_to "edit", edit_comment_path(comment) %>
+    <% if policy(comment).approve? %>
+      <%= button_to "approve", comment_approval_path(comment), class: "btn-link" %>
+    <% end %>
+    <%= button_to "delete", comment, method: :delete, data: { confirm: "Are you sure?" }, class: "btn-link" %>
+  </td>
+</tr>
