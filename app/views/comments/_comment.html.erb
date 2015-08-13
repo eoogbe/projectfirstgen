@@ -1,11 +1,7 @@
 <article class="comment" id="comment-<%= comment.id %>">
   <header>
     <div>
-      <p>
-        <%= time_tag comment.created_at do %>
-          <%= local_time comment.created_at %>
-        <% end %>
-      </p>
+      <p><%= local_time comment.created_at %></p>
       <% if policy(comment).update? %>
         <p><%= link_to "edit", edit_comment_path(comment) %></p>
       <% end %>

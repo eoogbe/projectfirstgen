@@ -49,6 +49,7 @@ gem 'pundit'
 gem 'sunspot_rails'
 gem 'progress_bar'
 gem 'puma'
+gem 'whenever', require: false
 
 group :development do
   gem 'quiet_assets'

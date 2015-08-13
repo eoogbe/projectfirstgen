@@ -12,11 +12,7 @@
       <%= link_to comment.replies.count, new_comment_reply_path(comment) %>
     <% end %>
   </td>
-  <td>
-    <%= time_tag comment.created_at do %>
-      <%= local_time comment.created_at %>
-    <% end %>
-  </td>
+  <td><%= local_time comment.created_at %></td>
   <td>
     <%= link_to "edit", edit_comment_path(comment) %>
     <% if policy(comment).approve? %>

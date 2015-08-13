@@ -11,4 +11,11 @@ class AdminMailer < ActionMailer::Base
 
     mail to: "nrgracia@stanford.edu"
   end
+
+  def unanswered_notification comments
+    @comments = comments
+
+    mail to: "nrgracia@stanford.edu",
+      subject: "#{comments.count} questions are unanswered"
+  end
 end

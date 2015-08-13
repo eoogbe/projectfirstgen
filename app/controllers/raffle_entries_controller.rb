@@ -5,7 +5,7 @@ class RaffleEntriesController < ApplicationController
     end
 
     current_user.raffle_entries.create!
-    # AdminMailer.raffle_entry(current_user).deliver_later
+    AdminMailer.raffle_entry(current_user).deliver_later
     redirect_to root_path, notice: "You have been entered into the raffle. Good luck!"
   end
 end

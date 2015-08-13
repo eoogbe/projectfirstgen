@@ -3,11 +3,7 @@
   <td><%= article.status %></td>
   <td><%= article.author_name %></td>
   <td class="text-right"><%= article.comments.count %></td>
-  <td>
-    <%= time_tag article.created_at do %>
-      <%= local_time article.created_at, "%B %e, %Y" %>
-    <% end %>
-  </td>
+  <td><%= local_date article.created_at %></td>
   <td>
     <%= link_to "edit", edit_article_path(article) %>
     <% if policy(article).approve? %>

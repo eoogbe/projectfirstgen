@@ -1,0 +1,10 @@
+No one has answered these questions for at least 5 days:
+<% @comments.find_each do |comment| %>
+  <%= "-" * 80 %>
+  By <%= comment.author_name %>
+  On <%= comment.article_title %>
+  At <%= comment.created_at.localtime.to_formatted_s(:long) %>
+  Saying
+    <%= comment.text %>
+  See <%= article_url(comment.article, anchor: "comment-#{comment.id}") %>
+<% end %>

@@ -1,0 +1,32 @@
+<p>No one has answered these questions for at least 5 days:</p>
+<ul style="list-style: none">
+  <% @comments.find_each do |comment| %>
+    <li>
+      <%= "-" * 80 %>
+      <table>
+        <tbody>
+          <tr>
+            <th scope="row" style="text-align: left">By</th>
+            <td><%= comment.author_name %></td>
+          </tr>
+          <tr>
+            <th scope="row" style="text-align: left">On</th>
+            <td><%= link_to comment.article_title, article_url(comment.article, anchor: "comment-#{comment.id}") %></td>
+          </tr>
+          <tr>
+            <th scope="row" style="text-align: left">At</th>
+            <td><%= time_tag comment.created_at.localtime, comment.created_at.localtime.to_formatted_s(:long) %></td>
+          </tr>
+          <tr>
+            <th scope="row" style="text-align: left; padding-right: 1em">Saying</th>
+            <td>
+              <% comment.paragraphs.each do |text| %>
+                <p><%= text %></p>
+              <% end %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </li>
+  <% end %>
+</ul>

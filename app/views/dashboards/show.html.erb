@@ -31,9 +31,7 @@
           <% current_user.current_articles.each do |article| %>
             <li>
               <%= link_to article.title, article %>
-              <%= time_tag article.created_at do %>
-                <%= local_time article.created_at, "%B %e, %Y" %>
-              <% end %>
+              <%= local_date article.created_at %>
             </li>
           <% end %>
         </ul>
@@ -56,12 +54,8 @@
         <% current_user.current_comments.each do |comment| %>
           <li>
             <p class="text-muted">
-              On
-              <%= link_to comment.article_title, article_path(comment.article, anchor: "comment-#{comment.id}") %>
-              at
-              <%= time_tag comment.created_at do %>
-                <%= local_time comment.created_at %>
-              <% end %>
+              On <%= link_to comment.article_title, article_path(comment.article, anchor: "comment-#{comment.id}") %>
+              at <%= local_time comment.created_at %>
             </p>
             <div class="lines-3 truncate">
               <% comment.paragraphs.each do |text| %>

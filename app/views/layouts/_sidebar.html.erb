@@ -17,7 +17,7 @@
       <% Article.recent.each do |article| %>
         <li>
           <%= link_to article.title, article %>
-          <%= local_time article.created_at, "%B %e, %Y" %>
+          <%= local_date article.created_at %>
         </li>
       <% end %>
     </ul>

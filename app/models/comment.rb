@@ -14,7 +14,7 @@ class Comment < ActiveRecord::Base
   end
 
   def self.unanswered
-    where("id NOT IN (SELECT reply_id FROM comment_replies)")
+    approved.where("id NOT IN (SELECT reply_id FROM comment_replies)")
       .where("id NOT IN (SELECT comment_id FROM comment_replies)")
   end
 

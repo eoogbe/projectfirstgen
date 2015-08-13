@@ -2,12 +2,7 @@
   <header>
     <h3><%= link_to article.title, article %></h3>
     <p>by <cite><%= article.author_name %></cite></p>
-    <p>
-      posted
-      <%= time_tag article.created_at do %>
-        <%= local_time article.created_at, "%B %e, %Y" %>
-      <% end %>
-    </p>
+    <p>posted <%= local_date article.created_at %></p>
   </header>
   <% if article.pending? %>
     <div class="alert alert-warning">
