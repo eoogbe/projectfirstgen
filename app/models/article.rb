@@ -1,11 +1,14 @@
 class Article < ActiveRecord::Base
   extend FriendlyId
+  include PgSearch
   enum status: [:pending, :approved]
   friendly_id :title, use: :slugged
+  pg_search_scope :search_by_title_or_text, against: { title: "A", text: "B" },
+    using: { tsearch: { dictionary: "english"}},
+    order_within_rank: "articles.created_at DESC"
   belongs_to :author, class_name: "User"
   has_many :comments
   validates_presence_of :author, :title, :text, :status
-  searchable { text :title, :text }
 
   def self.recent
     approved.order(created_at: :desc).limit(5)

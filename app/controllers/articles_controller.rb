@@ -60,12 +60,9 @@ class ArticlesController < ApplicationController
     return redirect_to articles_path if params[:q].blank?
 
     authorize Article.new
-    self.articles = policy_scope(Article).search do
-      fulltext params[:q] do
-        boost_fields title: 2.0
-      end
-      paginate page: params[:page], per_page: Kaminari.config.default_per_page
-    end.results
+    self.articles = policy_scope(Article)
+      .search_by_title_or_text(params[:q])
+      .page(params[:page])
   end
 
   private

@@ -3,6 +3,10 @@
   Search results for <span class="text-muted"><%= params[:q] %></span>
 <% end %>
 
-<%= paginate articles %>
-<%= render articles %>
-<%= paginate articles %>
+<% if articles.exists? %>
+  <%= paginate articles %>
+  <%= render articles %>
+  <%= paginate articles %>
+<% else %>
+  <p>No matching blogs found</p>
+<% end %>
