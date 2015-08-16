@@ -2,9 +2,11 @@ class Comment < ActiveRecord::Base
   enum status: [:pending, :approved]
   belongs_to :author, class_name: "User"
   belongs_to :article
-  has_many :comment_replies
-  has_many :replies, ->{ order(:created_at) }, through: :comment_replies
-  has_one :reply_parent, foreign_key: :reply_id, class_name: "CommentReply"
+  has_many :comment_replies, dependent: :destroy
+  has_many :replies, ->{ order(:created_at) }, through: :comment_replies,
+    dependent: :destroy
+  has_one :reply_parent, foreign_key: :reply_id, class_name: "CommentReply",
+    dependent: :destroy
   has_one :parent, through: :reply_parent, source: :comment
   validates_presence_of :author, :article, :text, :status
   delegate :title, to: :article, prefix: true

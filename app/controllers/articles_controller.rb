@@ -19,7 +19,12 @@ class ArticlesController < ApplicationController
     authorize article
 
     if article.save
-      flash[:raffle] = true if current_user.article_raffle_eligible?
+      if current_user.article_raffle_eligible?
+        flash[:raffle] = true
+      elsif current_user.grad? && current_user.current_raffle_entry.nil?
+        num_articles = current_user.num_articles_needed_for_raffle
+        flash.notice = "#{num_articles} more #{"blog".pluralize(num_articles)} until you are eligible for the monthly raffle"
+      end
 
       redirect_to article
     else

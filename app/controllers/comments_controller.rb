@@ -8,7 +8,12 @@ class CommentsController < ApplicationController
     end
 
     if comment.save
-      flash[:raffle] = true if current_user.comment_raffle_eligible?
+      if current_user.comment_raffle_eligible?
+        flash[:raffle] = true
+      elsif current_user.undergrad? && current_user.current_raffle_entry.nil?
+        num_comments = current_user.num_comments_needed_for_raffle
+        flash.notice = "#{num_comments} more #{"question".pluralize(num_comments)} until you are eligible for the monthly raffle"
+      end
 
       redirect_to article_path(article, anchor: "comment-#{comment.id}")
     else

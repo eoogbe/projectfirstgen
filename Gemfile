@@ -52,3 +52,22 @@ gem 'pg_search'
 
 gem 'quiet_assets', group: :development
 gem 'rails_12factor', group: :production
+
+group :development, :test do
+  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'byebug'
+
+  # Access an IRB console on exception pages or by using <%= console %> in views
+  gem 'web-console', '~> 2.0'
+
+  gem 'minitest'
+  gem 'rspec-rails', '~> 3.0'
+  gem 'factory_girl_rails'
+end
+
+group :test do
+  gem 'rspec-given'
+  gem 'rspec-activemodel-mocks'
+  gem 'faker'
+  gem 'database_cleaner'
+end

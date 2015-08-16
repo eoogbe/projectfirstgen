@@ -5,9 +5,9 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
   enum role: [:undergrad, :grad, :control, :admin]
-  has_many :articles, foreign_key: :author_id
-  has_many :comments, foreign_key: :author_id
-  has_many :raffle_entries
+  has_many :articles, foreign_key: :author_id, dependent: :destroy
+  has_many :comments, foreign_key: :author_id, dependent: :destroy
+  has_many :raffle_entries, dependent: :destroy
   validates_presence_of :role, :name
   validates_uniqueness_of :username
   after_create :add_username
@@ -25,11 +25,20 @@ class User < ActiveRecord::Base
   end
 
   def article_raffle_eligible?
-    grad? && current_articles.count >= NUM_PUBLICATIONS_FOR_RAFFLE && current_raffle_entry.nil?
+    grad? && num_articles_needed_for_raffle <= 0 && current_raffle_entry.nil?
   end
 
   def comment_raffle_eligible?
-    undergrad? && current_comments.count >= NUM_PUBLICATIONS_FOR_RAFFLE && current_raffle_entry.nil?
+    undergrad? && num_comments_needed_for_raffle <= 0 &&
+      current_raffle_entry.nil?
+  end
+
+  def num_articles_needed_for_raffle
+    NUM_PUBLICATIONS_FOR_RAFFLE - current_articles.count
+  end
+
+  def num_comments_needed_for_raffle
+    NUM_PUBLICATIONS_FOR_RAFFLE - current_comments.count
   end
 
   private

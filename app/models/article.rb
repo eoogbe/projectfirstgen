@@ -7,7 +7,7 @@ class Article < ActiveRecord::Base
     using: { tsearch: { dictionary: "english"}},
     order_within_rank: "articles.created_at DESC"
   belongs_to :author, class_name: "User"
-  has_many :comments
+  has_many :comments, dependent: :destroy
   validates_presence_of :author, :title, :text, :status
 
   def self.recent
