@@ -67,7 +67,7 @@ end
 
 group :test do
   gem 'rspec-given'
-  gem 'rspec-activemodel-mocks'
   gem 'faker'
   gem 'database_cleaner'
+  gem 'timecop'
 end

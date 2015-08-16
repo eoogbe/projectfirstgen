@@ -30,10 +30,16 @@ class Article < ActiveRecord::Base
   end
 
   def prev_article
-    self.class.approved.where("created_at < ?", created_at).order(:created_at).last
+    self.class.approved
+      .where("created_at < ?", created_at)
+      .order(:created_at)
+      .last
   end
 
   def next_article
-    self.class.approved.where("created_at > ?", created_at).order(:created_at).first
+    self.class.approved
+      .where("created_at > ?", created_at)
+      .order(:created_at)
+      .first
   end
 end

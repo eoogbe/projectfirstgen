@@ -38,3 +38,7 @@ en:
   admin_mailer:
     raffle_entry:
       subject: Raffle entry request
+    unanswered_notification:
+      subject:
+        one: '1 question is unanswered'
+        other: '%{count} questions are unanswered'

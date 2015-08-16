@@ -16,6 +16,6 @@ class AdminMailer < ActionMailer::Base
     @comments = comments
 
     mail to: "nrgracia@stanford.edu",
-      subject: "#{comments.count} questions are unanswered"
+      subject: default_i18n_subject(count: comments.count)
   end
 end

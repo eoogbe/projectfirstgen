@@ -44,7 +44,7 @@ class User < ActiveRecord::Base
   private
 
   def add_username
-    update!(username: "#{role_name}#{id}")
+    update!(username: "#{role_name}#{id}") if username.nil?
   end
 
   def role_name
