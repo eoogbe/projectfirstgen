@@ -22,3 +22,7 @@
 every 1.day do
   rake "unanswered_notification"
 end
+
+every 7.days do
+  rake "reminder_emails"
+end

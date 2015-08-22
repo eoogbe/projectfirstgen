@@ -1,0 +1,17 @@
+<p>Hi <%= @user.name %>,</p>
+
+<p>Just sending a friendly reminder that you need
+<%= pluralize(@user.num_comments_needed_for_raffle, "more questions") %>
+until you are eligible for the monthly raffle.</p>
+
+<section>
+  <h2 style="margin-bottom: 0">Check out the latest blogs</h2>
+  <ul style="list-style: none; padding-left: 0; margin-top: 5px">
+    <% Article.recent.find_each do |article| %>
+      <li><%= link_to article.title, article_url(article) %></li>
+    <% end %>
+  </ul>
+</section>
+
+<p>Best wishes,<br>
+The Project First-Gen Team</p>

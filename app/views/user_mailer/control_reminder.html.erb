@@ -1,0 +1,9 @@
+<p>Hi <%= @user.name %>,</p>
+
+<p>Just sending a friendly reminder that you need
+<%= pluralize(@user.num_questions_needed_for_raffle, "more questions") %>
+until you are eligible for the monthly raffle.</p>
+<p><%= link_to "Ask another question", new_question_url %></p>
+
+<p>Best wishes,<br>
+The Project First-Gen Team</p>

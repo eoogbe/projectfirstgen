@@ -44,3 +44,10 @@ en:
       subject:
         one: '1 question is unanswered'
         other: '%{count} questions are unanswered'
+  user_mailer:
+    undergrad_reminder:
+      subject: Project First-Gen Newsletter
+    grad_reminder:
+      subject: Project First-Gen Newsletter
+    control_reminder:
+      subject: Project First-Gen Newsletter

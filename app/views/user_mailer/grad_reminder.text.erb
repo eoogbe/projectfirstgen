@@ -1,0 +1,7 @@
+Hi <%= @user.name %>,
+
+Just sending a friendly reminder that you need <%= pluralize(@user.num_articles_needed_for_raffle, "more blogs") %> until you are eligible for the monthly raffle.
+Post another blog: <%= new_article_url %>
+
+Best wishes,
+The Project First-Gen Team

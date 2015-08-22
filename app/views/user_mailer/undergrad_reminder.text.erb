@@ -1,0 +1,11 @@
+Hi <%= @user.name %>,
+
+Just sending a friendly reminder that you need <%= pluralize(@user.num_comments_needed_for_raffle, "more questions") %> until you are eligible for the monthly raffle.
+
+Check out the latest blogs:
+<% Article.recent.find_each do |article| %>
+<%= article.title %> (<%= article_url(article) %>)
+<% end %>
+
+Best wishes,
+The Project First-Gen Team

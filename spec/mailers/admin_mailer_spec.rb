@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe AdminMailer do
   describe "raffle_entry" do
-    Given(:user) { build(:user, email: "keaton.ernser@example.org", username: "GRAD2") }
+    Given(:user) { build(:grad, email: "keaton.ernser@example.org", username: "GRAD2") }
     When(:mail) { AdminMailer.raffle_entry(user) }
     Then { mail.subject == "Raffle entry request" }
     Then { mail.to == ["nrgracia@stanford.edu"] }

@@ -1,5 +1,5 @@
 class AdminMailer < ActionMailer::Base
-  default from: "projectfirstgen@gmail.com"
+  default from: "Project First-Gen <projectfirstgen@gmail.com>"
 
   # Subject can be set in your I18n file at config/locales/en.yml
   # with the following lookup:
