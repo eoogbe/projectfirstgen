@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   enum role: [:undergrad, :grad, :control, :admin]
   has_many :articles, foreign_key: :author_id, dependent: :destroy
   has_many :comments, foreign_key: :author_id, dependent: :destroy
+  has_many :questions, foreign_key: :author_id, dependent: :destroy
   has_many :raffle_entries, dependent: :destroy
   validates_presence_of :role, :name
   validates_uniqueness_of :username
@@ -18,6 +19,10 @@ class User < ActiveRecord::Base
 
   def current_comments
     comments.where("created_at > ?", DateTime.now.beginning_of_month)
+  end
+
+  def current_questions
+    questions.where("created_at > ?", DateTime.now.beginning_of_month)
   end
 
   def current_raffle_entry
@@ -33,12 +38,21 @@ class User < ActiveRecord::Base
       current_raffle_entry.nil?
   end
 
+  def question_raffle_eligible?
+    control? && num_questions_needed_for_raffle <= 0 &&
+      current_raffle_entry.nil?
+  end
+
   def num_articles_needed_for_raffle
     NUM_PUBLICATIONS_FOR_RAFFLE - current_articles.count
   end
 
   def num_comments_needed_for_raffle
     NUM_PUBLICATIONS_FOR_RAFFLE - current_comments.count
+  end
+
+  def num_questions_needed_for_raffle
+    NUM_PUBLICATIONS_FOR_RAFFLE - current_questions.count
   end
 
   private

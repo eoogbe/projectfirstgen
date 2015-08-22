@@ -2,6 +2,7 @@ class RepliesController < ApplicationController
   def new
     self.comment = Comment.find(params[:comment_id])
     self.reply = comment.replies.build
+    authorize reply
 
     if request.xhr?
       render partial: "replies/form", locals: { comment: comment, reply: reply }
@@ -16,6 +17,7 @@ class RepliesController < ApplicationController
       c.article = comment.article
       c.status = current_user.admin? ? :approved : :pending
     end
+    authorize reply
 
     if reply.save
       if current_user.comment_raffle_eligible?

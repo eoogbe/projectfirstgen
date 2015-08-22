@@ -35,19 +35,41 @@ RSpec.describe CommentAuthorizer do
     end
   end
 
+  permissions :create? do
+    it "grants access when user is an admin" do
+      user = build(:admin)
+      expect(subject).to permit(user, comment)
+    end
+
+    it "grants access when user is a grad" do
+      user = build(:grad)
+      expect(subject).to permit(user, comment)
+    end
+
+    it "grants access when user is an undergrad" do
+      user = build(:user)
+      expect(subject).to permit(user, comment)
+    end
+
+    it "denies access when user is a control" do
+      user = build(:control)
+      expect(subject).not_to permit(user, comment)
+    end
+  end
+
   permissions :update? do
     it "grants access when user is an admin" do
       user = build(:admin)
       expect(subject).to permit(user, comment)
     end
 
-    it "denies access when user is an undergrad" do
-      user = build(:user)
+    it "denies access when user is a grad" do
+      user = build(:grad)
       expect(subject).not_to permit(user, comment)
     end
 
-    it "denies access when user is a grad" do
-      user = build(:grad)
+    it "denies access when user is an undergrad" do
+      user = build(:user)
       expect(subject).not_to permit(user, comment)
     end
 

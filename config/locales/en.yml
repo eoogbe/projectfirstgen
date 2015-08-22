@@ -33,6 +33,8 @@ en:
         create: Post Blog
       comment:
         create: Post Question
+      question:
+        create: Post Question
       reply:
         create: Post Reply
   admin_mailer:

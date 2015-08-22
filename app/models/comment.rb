@@ -29,7 +29,7 @@ class Comment < ActiveRecord::Base
   end
 
   def old_unanswered?
-    root? && replies.count == 0 && created_at > 5.days.ago
+    root? && replies.count == 0 && created_at < 5.days.ago
   end
 
   def paragraphs

@@ -1,0 +1,22 @@
+<section>
+  <h3>Monthly Activity</h3>
+  <% if current_user.current_articles.exists? %>
+    <ul class="list-unstyled">
+      <% current_user.current_articles.each do |article| %>
+        <li>
+          <%= link_to article.title, article %>
+          <%= local_date article.created_at %>
+        </li>
+      <% end %>
+    </ul>
+    <% if current_user.article_raffle_eligible? %>
+      <p>
+        You are eligible for our monthly raffle.
+        <%= link_to "Enter raffle", raffle_entries_path, method: :post %>
+      </p>
+    <% end %>
+  <% else %>
+    <p>You have not written any blogs this month</p>
+  <% end %>
+  <p><%= link_to "New Blog", new_article_path %></p>
+</section>

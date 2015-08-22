@@ -1,0 +1,27 @@
+<section>
+  <h3>Monthly Activity</h3>
+  <% if current_user.current_questions.exists? %>
+    <ul class="list-unstyled">
+      <% current_user.current_questions.each do |question| %>
+        <li>
+          <p class="text-muted">
+            At <%= local_time question.created_at %>
+          </p>
+          <div class="lines-3 truncate">
+            <% question.paragraphs.each do |text| %>
+              <p><%= text %></p>
+            <% end %>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+    <% if current_user.question_raffle_eligible? %>
+      <p>
+        You are eligible for our monthly raffle.
+        <%= button_to "Enter raffle", raffle_entries_path, class: "btn-link" %>
+      </p>
+    <% end %>
+  <% else %>
+    <p>You have not asked any questions this month</p>
+  <% end %>
+</section>

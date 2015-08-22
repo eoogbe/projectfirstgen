@@ -6,6 +6,7 @@ class CommentsController < ApplicationController
       c.article = article
       c.status = current_user.admin? ? :approved : :pending
     end
+    authorize comment
 
     if comment.save
       if current_user.comment_raffle_eligible?

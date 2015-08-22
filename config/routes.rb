@@ -7,10 +7,12 @@ Rails.application.routes.draw do
     get :search, on: :collection
   end
 
-  resources :comments, except: [:create, :show, :index] do
+  resources :comments, only: [:edit, :update, :destroy] do
     resources :replies, only: [:new, :create]
     resource :approval, only: :create, module: :comments
   end
+
+  resources :questions, only: [:new, :create]
 
   resources :raffle_entries, only: :create
   resource :dashboard, only: :show
@@ -20,6 +22,7 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :articles, only: :index
     resources :comments, only: :index
+    resources :questions, only: :index
     resources :users, only: :index
   end
 

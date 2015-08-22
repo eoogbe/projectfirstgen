@@ -23,7 +23,7 @@
   <% comment.paragraphs.each do |text| %>
     <p><%= text %></p>
   <% end %>
-  <% if comment.root? %>
+  <% if comment.root? && comment.approved? %>
     <% if comment.replies.present? %>
       <section>
         <h5 class="sr-only">Replies</h5>

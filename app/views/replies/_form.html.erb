@@ -3,6 +3,6 @@
     <%= f.input :text, input_html: { rows: 5, "aria-label" => "Reply text" }, label: false %>
   <% end %>
   <%= f.actions do %>
-    <%= f.action :submit, label: :reply, button_html: { class: "btn btn-primary" } %>
+    <%= f.action :submit, label: [:actions, :reply, :create], button_html: { class: "btn btn-primary" } %>
   <% end %>
 <% end %>

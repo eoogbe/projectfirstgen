@@ -24,12 +24,14 @@
           <% end %>
         </li>
       <% end %>
-      <li class="<%= "active" if current_page?(new_comment_path) %>">
-        <%= link_to "Ask a Question", new_comment_path %>
-        <% if current_page?(new_comment_path) %>
-          <span class="sr-only">(current)</span>
-        <% end %>
-      </li>
+      <% if policy(Question.new).new? %>
+        <li class="<%= "active" if current_page?(new_question_path) %>">
+          <%= link_to "Ask a Question", new_question_path %>
+          <% if current_page?(new_question_path) %>
+            <span class="sr-only">(current)</span>
+          <% end %>
+        </li>
+      <% end %>
       <li class="<%= "active" if current_page?(resources_path) %>">
         <%= link_to "Resources", resources_path %>
         <% if current_page?(resources_path) %>

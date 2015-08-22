@@ -10,6 +10,10 @@ class CommentAuthorizer < ApplicationAuthorizer
     end
   end
 
+  def create?
+    user && !user.control?
+  end
+
   def update?
     admin?
   end

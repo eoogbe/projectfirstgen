@@ -1,0 +1,11 @@
+<% provide(:title, "New Question") %>
+<% provide(:heading, "Ask a Question") %>
+
+<%= semantic_form_for question, html: { role: "form" } do |f| %>
+  <%= f.inputs do %>
+    <%= f.input :text, input_html: { rows: 5, "aria-label" => "Question text" }, label: false %>
+  <% end %>
+  <%= f.actions do %>
+    <%= f.action :submit, button_html: { class: "btn btn-primary" } %>
+  <% end %>
+<% end %>
