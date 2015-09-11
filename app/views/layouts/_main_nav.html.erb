@@ -32,12 +32,14 @@
           <% end %>
         </li>
       <% end %>
-      <li class="<%= "active" if current_page?(resources_path) %>">
-        <%= link_to "Resources", resources_path %>
-        <% if current_page?(resources_path) %>
-          <span class="sr-only">(current)</span>
-        <% end %>
-      </li>
+      <% if signed_in? %>
+        <li class="<%= "active" if current_page?(resources_path) %>">
+          <%= link_to "Resources", resources_path %>
+          <% if current_page?(resources_path) %>
+            <span class="sr-only">(current)</span>
+          <% end %>
+        </li>
+      <% end %>
     </ul>
   </div>
 </nav>
