@@ -4,14 +4,17 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+  enum school: [:atu, :stanford]
   enum role: [:undergrad, :grad, :control, :admin]
   has_many :articles, foreign_key: :author_id, dependent: :destroy
   has_many :comments, foreign_key: :author_id, dependent: :destroy
   has_many :questions, foreign_key: :author_id, dependent: :destroy
   has_many :raffle_entries, dependent: :destroy
-  validates_presence_of :role, :name
-  validates_uniqueness_of :username
+  before_create :set_control
   after_create :add_username
+  validates_presence_of :role, :name
+  validates_presence_of :school, unless: :admin?
+  validates_uniqueness_of :username
 
   def current_articles
     articles.where("created_at > ?", DateTime.now.beginning_of_month)
@@ -59,6 +62,10 @@ class User < ActiveRecord::Base
 
   def add_username
     update!(username: "#{role_name}#{id}") if username.nil?
+  end
+
+  def set_control
+    self.role = :control if undergrad? && rand >= 0.5
   end
 
   def role_name

@@ -16,12 +16,17 @@ class ApplicationController < ActionController::Base
     helper_method(*attrs)
   end
 
-  def after_sign_out_path_for resource_or_scope
+  def after_sign_up_path_for resource
+    program = resource.grad? ? "grad" : "ugrad"
+    ENV["#{resource.school}_#{program}_SURVEY_PATH".upcase]
+  end
+
+  def after_sign_out_path_for resource
     new_user_session_path
   end
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:sign_up) << :name
+    devise_parameter_sanitizer.for(:sign_up) << :name << :school << :role
     devise_parameter_sanitizer.for(:account_update) << :name
   end
 

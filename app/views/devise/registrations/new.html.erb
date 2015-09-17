@@ -7,16 +7,16 @@
   <fieldset>
     <legend class="control-label">School</legend>
     <div class="radio">
-      <%= label_tag :school_atu, class: "control-label" do %>
-        <%= radio_button_tag :school, :atu, false, required: true, "aria-required" => "true" %>
+      <label>
+        <%= f.radio_button :school, :atu, required: true, "aria-required" => "true" %>
         Arkansas Tech Univerity
-      <% end %>
+      </label>
     </div>
     <div class="radio">
-      <%= label_tag :school_stanford, class: "control-label" do %>
-        <%= radio_button_tag :school, :stanford, false, required: true, "aria-required" => "true" %>
+      <label>
+        <%= f.radio_button :school, :stanford, required: true, "aria-required" => "true" %>
         Stanford
-      <% end %>
+      </label>
     </div>
   </fieldset>
 
@@ -46,16 +46,16 @@
   <fieldset>
     <legend class="control-label">Program</legend>
     <div class="radio">
-      <%= label_tag :program_undergrad, class: "control-label" do %>
-        <%= radio_button_tag :program, :undergrad, resource.undergrad?, required: true, "aria-required" => "true" %>
+      <label>
+        <%= f.radio_button :role, :undergrad, required: true, "aria-required" => "true" %>
         Undergraduate
-      <% end %>
+      </label>
     </div>
     <div class="radio">
-      <%= label_tag :program_grad, class: "control-label" do %>
-        <%= radio_button_tag :program, :grad, resource.grad?, required: true, "aria-required" => "true" %>
+      <label>
+        <%= f.radio_button :role, :grad, required: true, "aria-required" => "true" %>
         Graduate
-      <% end %>
+      </label>
     </div>
   </fieldset>
 
