@@ -9,9 +9,7 @@
             at <%= local_time comment.created_at %>
           </p>
           <div class="lines-3 truncate">
-            <% comment.paragraphs.each do |text| %>
-              <p><%= text %></p>
-            <% end %>
+            <%= simple_format comment.text %>
           </div>
         </li>
       <% end %>

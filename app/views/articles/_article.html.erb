@@ -10,9 +10,5 @@
       the author and admins.
     </div>
   <% end %>
-  <div class="truncate lines-6">
-    <% article.paragraphs.each do |text| %>
-      <p><%= text %></p>
-    <% end %>
-  </div>
+  <div class="truncate lines-6"><%= simple_format article.text %></div>
 </section>

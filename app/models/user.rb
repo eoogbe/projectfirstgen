@@ -10,7 +10,6 @@ class User < ActiveRecord::Base
   has_many :comments, foreign_key: :author_id, dependent: :destroy
   has_many :questions, foreign_key: :author_id, dependent: :destroy
   has_many :raffle_entries, dependent: :destroy
-  before_create :set_control
   after_create :add_username
   validates_presence_of :role, :name
   validates_presence_of :school, unless: :admin?
@@ -62,10 +61,6 @@ class User < ActiveRecord::Base
 
   def add_username
     update!(username: "#{role_name}#{id}") if username.nil?
-  end
-
-  def set_control
-    self.role = :control if undergrad? && rand >= 0.5
   end
 
   def role_name

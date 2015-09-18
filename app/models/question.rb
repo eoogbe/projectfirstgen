@@ -5,8 +5,4 @@ class Question < ActiveRecord::Base
   def author_name
     author.username
   end
-
-  def paragraphs
-    text.split(/[\r\n]+/)
-  end
 end

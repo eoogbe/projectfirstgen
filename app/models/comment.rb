@@ -31,8 +31,4 @@ class Comment < ActiveRecord::Base
   def old_unanswered?
     root? && replies.count == 0 && created_at < 5.days.ago
   end
-
-  def paragraphs
-    text.split(/[\r\n]+/)
-  end
 end

@@ -1,9 +1,5 @@
 <tr>
   <td><%= question.author_name %></td>
-  <td class="lines-6 truncate">
-    <% question.paragraphs.each do |text| %>
-      <p><%= text %></p>
-    <% end %>
-  </td>
+  <td class="lines-6 truncate"><%= simple_format question.text %></td>
   <td><%= local_time question.created_at %></td>
 </tr>

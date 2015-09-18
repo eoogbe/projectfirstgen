@@ -25,10 +25,6 @@ class Article < ActiveRecord::Base
     author.username
   end
 
-  def paragraphs
-    text.split(/[\r\n]+/)
-  end
-
   def prev_article
     self.class.approved
       .where("created_at < ?", created_at)
