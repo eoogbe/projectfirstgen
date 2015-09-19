@@ -3,6 +3,7 @@ FactoryGirl.define do
     email { Faker::Internet.safe_email }
     password { Faker::Internet.password }
     name { Faker::Name.name }
+    after(:create) {|user| user.confirm }
     factory :grad do
       role :grad
     end

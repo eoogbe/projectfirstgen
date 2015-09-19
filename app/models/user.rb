@@ -1,15 +1,16 @@
 class User < ActiveRecord::Base
   NUM_PUBLICATIONS_FOR_RAFFLE = 3
   # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+  # :lockable, :timeoutable and :omniauthable
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable,
+    :trackable, :validatable, :confirmable
   enum school: [:atu, :stanford]
   enum role: [:undergrad, :grad, :control, :admin]
   has_many :articles, foreign_key: :author_id, dependent: :destroy
   has_many :comments, foreign_key: :author_id, dependent: :destroy
   has_many :questions, foreign_key: :author_id, dependent: :destroy
   has_many :raffle_entries, dependent: :destroy
+  before_create :skip_confirmation_notification!
   after_create :add_username
   validates_presence_of :role, :name
   validates_presence_of :school, unless: :admin?

@@ -50,6 +50,7 @@ gem 'pundit'
 gem 'puma'
 gem 'whenever', require: false
 gem 'pg_search'
+gem 'addressable'
 
 gem 'quiet_assets', group: :development
 gem 'rails_12factor', group: :production
