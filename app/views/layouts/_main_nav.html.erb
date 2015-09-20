@@ -32,7 +32,7 @@
           <% end %>
         </li>
       <% end %>
-      <% if signed_in? %>
+      <% if signed_in? && false %>
         <li class="<%= "active" if current_page?(resources_path) %>">
           <%= link_to "Resources", resources_path %>
           <% if current_page?(resources_path) %>
