@@ -57,7 +57,7 @@ RSpec.describe CommentAuthorizer do
     end
   end
 
-  permissions :update? do
+  permissions :update?, :edit? do
     it "grants access when user is an admin" do
       user = build(:admin)
       expect(subject).to permit(user, comment)

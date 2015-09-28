@@ -5,7 +5,7 @@ RSpec.describe CommentsController do
 
   describe "POST #create" do
     Given(:article) { create(:article) }
-    When(:response) { post :create, article_id: article.slug, comment: comment_attrs }
+    When(:response) { post :create, article_id: article.to_param, comment: comment_attrs }
     context "when current user is undergrad" do
       Given(:current_user) { create(:user) }
       context "when valid" do
@@ -91,14 +91,9 @@ RSpec.describe CommentsController do
 
   describe "DELETE #destroy" do
     Given(:current_user) { create(:admin) }
-    Given!(:comment) { create(:comment) }
-    Given(:response) do
-      res = nil
-      expect do
-        res = delete :destroy, id: comment.id
-      end.to change { Comment.count }.by -1
-      res
-    end
+    Given(:comment) { create(:comment) }
+    When(:response) { delete :destroy, id: comment.id }
     Then { expect(response).to redirect_to dashboard_path }
+    Then { !Comment.exists?(id: comment.id) }
   end
 end

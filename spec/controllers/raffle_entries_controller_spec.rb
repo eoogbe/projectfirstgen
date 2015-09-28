@@ -5,15 +5,10 @@ RSpec.describe RaffleEntriesController do
   describe "POST #create" do
     context "with response" do
       Given(:current_user) { create(:user) }
-      Given!(:response) do
-        res = nil
-        expect do
-          res = post :create
-        end.to change { current_user.raffle_entries.count }.by 1
-        res
-      end
+      When(:response) { post :create }
+      Then { current_user.current_raffle_entry.present? }
       Then { flash.notice.present? }
-      And { expect(response).to redirect_to root_path }
+      Then { expect(response).to redirect_to root_path }
     end
     context "with mail delivery" do
       Given(:current_user) { create(:user, email: "raphael@example.com", username: "UGRAD6") }

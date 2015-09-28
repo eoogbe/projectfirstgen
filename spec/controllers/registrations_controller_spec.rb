@@ -26,7 +26,7 @@ RSpec.describe RegistrationsController do
     end
     context "when creating admin" do
       Given(:role) { "admin" }
-      Then { expect(response).to redirect_to new_user_registration_path }
+      Then { expect(response).to redirect_to root_path }
       Then { flash[:alert].present? }
     end
   end

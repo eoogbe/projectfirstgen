@@ -5,7 +5,7 @@ RSpec.describe Articles::ApprovalsController do
 
   describe "POST #create" do
     Given(:article) { create(:article, status: :pending) }
-    When(:response) { post :create, article_id: article.slug }
+    When(:response) { post :create, article_id: article.to_param }
     Then { article.reload.approved? }
     Then { expect(response).to redirect_to article_path(article) }
   end

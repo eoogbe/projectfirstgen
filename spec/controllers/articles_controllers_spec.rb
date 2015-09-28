@@ -70,7 +70,7 @@ RSpec.describe ArticlesController do
   describe "GET #edit" do
     Given(:current_user) { create(:admin) }
     Given(:article) { create(:article) }
-    When(:response) { get :edit, id: article.slug }
+    When(:response) { get :edit, id: article.to_param }
     Then { assigns(:article) == article }
     Then { expect(response).to render_template :edit }
     Then { response.successful? }
@@ -79,7 +79,7 @@ RSpec.describe ArticlesController do
   describe "PUT #update" do
     Given(:current_user) { create(:admin) }
     Given(:article) { create(:article) }
-    When(:response) { put :update, id: article.slug, article: article_attrs }
+    When(:response) { put :update, id: article.to_param, article: article_attrs }
     context "when valid" do
       Given(:article_attrs) { attributes_for(:article).slice(:title, :text) }
       Then { expect(response).to redirect_to article_path(article) }
@@ -93,7 +93,7 @@ RSpec.describe ArticlesController do
   describe "GET #show" do
     Given(:current_user) { create(:user) }
     Given(:article) { create(:article) }
-    When(:response) { get :show, id: article.slug }
+    When(:response) { get :show, id: article.to_param }
     Then { assigns(:article) == article }
     Then { expect(response).to render_template :show }
     Then { response.successful? }
@@ -101,15 +101,10 @@ RSpec.describe ArticlesController do
 
   describe "DELETE #destroy" do
     Given(:current_user) { create(:admin) }
-    Given!(:article) { create(:article) }
-    Given(:response) do
-      res = nil
-      expect do
-        res = delete :destroy, id: article.slug
-      end.to change { Article.count }.by -1
-      res
-    end
+    Given(:article) { create(:article) }
+    When(:response) { delete :destroy, id: article.to_param }
     Then { expect(response).to redirect_to dashboard_path }
+    Then { !Article.exists?(id: article.id) }
   end
 
   describe "GET #search" do

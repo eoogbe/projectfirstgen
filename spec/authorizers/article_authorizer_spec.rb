@@ -79,7 +79,7 @@ RSpec.describe ArticleAuthorizer do
     end
   end
 
-  permissions :create? do
+  permissions :create?, :new? do
     it "grants access when user is a grad" do
       user = build(:grad)
       expect(subject).to permit(user, article)
@@ -101,7 +101,7 @@ RSpec.describe ArticleAuthorizer do
     end
   end
 
-  permissions :update? do
+  permissions :update?, :edit? do
     it "grants access when user is an admin" do
       user = build(:admin)
       expect(subject).to permit(user, article)
