@@ -27,6 +27,14 @@ en:
     attributes:
       user:
         role: Program
+        roles:
+          undergrad: Undergraduate
+          grad: Graduate
+          control: Control
+          admin: Administrator
+        schools:
+          atu: Arkansas Tech University
+          stanford: Stanford
   formtastic:
     actions:
       article:

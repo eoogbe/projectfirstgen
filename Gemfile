@@ -39,7 +39,8 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin]
 
-gem 'devise'
+gem 'devise', '~> 3.5.2'
+gem 'devise_invitable', '~> 1.5.2'
 gem 'formtastic', '~> 3.0'
 gem 'bootstrap-sass', '~> 3.3.4'
 gem 'kaminari'

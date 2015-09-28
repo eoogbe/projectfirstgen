@@ -7,15 +7,7 @@ class RegistrationsController < Devise::RegistrationsController
   private
 
   def prevent_admin_param
-    if params[:user][:role] == "admin"
-      redirect_to new_user_registration_path, alert: "You cannot perform that action"
-    end
-  end
-
-  def set_control
-    if params[:user][:role] == "undergrad" && rand < 0.5
-      params[:user][:role] = "control"
-    end
+    user_not_authorized if params[:user][:role] == "admin"
   end
 
   def after_inactive_sign_up_path_for resource

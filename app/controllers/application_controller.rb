@@ -20,9 +20,24 @@ class ApplicationController < ActionController::Base
     new_user_session_path
   end
 
+  def after_invite_path_for resource
+    admin_users_path
+  end
+
   def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:sign_up) << :name << :school << :role
+    devise_parameter_sanitizer.for(:sign_up).concat [:name, :school, :role]
     devise_parameter_sanitizer.for(:account_update) << :name
+    devise_parameter_sanitizer.for(:invite).concat [:name, :school, :role]
+  end
+
+  def require_admin
+    user_not_authorized unless current_user && current_user.admin?
+  end
+
+  def set_control
+    if params[:user][:role] == "undergrad" && rand < 0.5
+      params[:user][:role] = "control"
+    end
   end
 
   def user_not_authorized

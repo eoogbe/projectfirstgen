@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: { registrations: "registrations" }
+  devise_for :users, controllers: { registrations: "registrations",
+    invitations: "invitations" }
 
   resources :articles do
     resources :comments, only: :create
@@ -23,7 +24,7 @@ Rails.application.routes.draw do
     resources :articles, only: :index
     resources :comments, only: :index
     resources :questions, only: :index
-    resources :users, only: :index
+    resources :users, only: [:index, :edit, :update]
   end
 
   root "home#index"

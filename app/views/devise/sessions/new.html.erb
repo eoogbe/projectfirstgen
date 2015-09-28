@@ -1,5 +1,4 @@
 <% provide(:title, "Sign In") %>
-<% provide(:heading, "Sign in") %>
 
 <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { role: "form" }) do |f| %>
   <div class="form-group">
@@ -20,9 +19,7 @@
     </div>
   <% end -%>
 
-  <div class="actions">
-    <%= f.submit "Sign in", class: "btn btn-primary" %>
-  </div>
+  <%= f.submit "Sign in", class: "btn btn-primary" %>
 <% end %>
 
 <%= render "devise/shared/links" %>

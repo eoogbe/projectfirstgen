@@ -1,23 +1,18 @@
 <% provide(:title, "Sign Up") %>
-<% provide(:heading, "Sign up") %>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { role: "form" }) do |f| %>
   <%= devise_error_messages! %>
 
   <fieldset>
     <legend class="control-label">School</legend>
-    <div class="radio">
-      <label>
-        <%= f.radio_button :school, :atu, required: true, "aria-required" => "true" %>
-        Arkansas Tech Univerity
-      </label>
-    </div>
-    <div class="radio">
-      <label>
-        <%= f.radio_button :school, :stanford, required: true, "aria-required" => "true" %>
-        Stanford
-      </label>
-    </div>
+    <% User.schools.keys.each do |school| %>
+      <div class="radio">
+        <label>
+          <%= f.radio_button :school, school, required: true, "aria-required" => "true" %>
+          <%= t(school, scope: [:activerecord, :attributes, :user, :schools]) %>
+        </label>
+      </div>
+    <% end %>
   </fieldset>
 
   <div class="form-group">
@@ -29,7 +24,7 @@
     <%= f.label :password, class: "control-label" %>
     <% if @validatable %>
     <em class="hint">(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
+    <% end %>
     <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
   </div>
 
@@ -45,24 +40,17 @@
 
   <fieldset>
     <legend class="control-label">Program</legend>
-    <div class="radio">
-      <label>
-        <%= f.radio_button :role, :undergrad, required: true, "aria-required" => "true" %>
-        Undergraduate
-      </label>
-    </div>
-    <div class="radio">
-      <label>
-        <%= f.radio_button :role, :grad, required: true, "aria-required" => "true" %>
-        Graduate
-      </label>
-    </div>
+    <% User.roles.only(:undergrad, :grad).keys.each do |role| %>
+      <div class="radio">
+        <label>
+          <%= f.radio_button :role, role, required: true, "aria-required" => "true" %>
+          <%= t(role, scope: [:activerecord, :attributes, :roles]) %>
+        </label>
+      </div>
+    <% end %>
   </fieldset>
 
-
-  <div class="actions">
-    <%= f.submit "Sign up", class: "btn btn-primary" %>
-  </div>
+  <%= f.submit "Sign up", class: "btn btn-primary" %>
 <% end %>
 
 <%= render "devise/shared/links" %>

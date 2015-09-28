@@ -1,16 +1,5 @@
-<h2>Resend confirmation instructions</h2>
+<% provide(:title, "Resend Confirmation Instructions") %>
 
-<%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
-  <%= devise_error_messages! %>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Resend confirmation instructions" %>
-  </div>
-<% end %>
+<p><%= mail_to "Email us", "projectfirstgen@gmail.com" %> to activate your account.</p>
 
 <%= render "devise/shared/links" %>

@@ -1,0 +1,40 @@
+<% provide(:title, "Edit User") %>
+
+<%= form_for(user, url: admin_user_path(user), method: :put) do |f| %>
+  <div class="form-group">
+    <%= f.label :email, class: "control-label" %>
+    <%= f.email_field :email, autofocus: true, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :name, class: "control-label" %>
+    <%= f.text_field :name, class: "form-control" %>
+  </div>
+
+  <fieldset>
+    <legend class="control-label">Role</legend>
+    <% User.roles.keys.each do |role| %>
+      <div class="radio">
+        <label>
+          <%= f.radio_button :role, role, class: "user_role", required: true,
+              "aria-required" => "true" %>
+          <%= t(role, scope: [:activerecord, :attributes, :user, :roles]) %>
+        </label>
+      </div>
+    <% end %>
+  </fieldset>
+
+  <fieldset id="school-fields">
+    <legend class="control-label">School</legend>
+    <% User.schools.keys.each do |school| %>
+      <div class="radio">
+        <label>
+          <%= f.radio_button :school, school %>
+          <%= t(school, scope: [:activerecord, :attributes, :user, :schools]) %>
+        </label>
+      </div>
+    <% end %>
+  </fieldset>
+
+  <%= f.submit class: "btn btn-primary" %>
+<% end %>
