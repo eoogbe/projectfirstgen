@@ -40,7 +40,7 @@
 
   <fieldset>
     <legend class="control-label">Program</legend>
-    <% User.roles.only(:undergrad, :grad).keys.each do |role| %>
+    <% User.roles.slice(:undergrad, :grad).keys.each do |role| %>
       <div class="radio">
         <label>
           <%= f.radio_button :role, role, required: true, "aria-required" => "true" %>
