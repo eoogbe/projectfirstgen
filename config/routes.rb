@@ -14,7 +14,6 @@ Rails.application.routes.draw do
   end
 
   resources :questions, only: [:new, :create]
-  resources :users, only: [:edit, :update, :destroy]
   resources :raffle_entries, only: :create
   resource :dashboard, only: :show
 
@@ -24,7 +23,9 @@ Rails.application.routes.draw do
     resources :articles, only: :index
     resources :comments, only: :index
     resources :questions, only: :index
-    resources :users, only: :index
+    resources :users, except: [:new, :create, :show] do
+      resource :confirmation, only: :create
+    end
   end
 
   root "home#index"
