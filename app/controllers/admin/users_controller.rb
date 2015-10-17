@@ -31,6 +31,6 @@ class Admin::UsersController < AdminController
   helper_attr :users, :user
 
   def user_params
-    params.require(:user).permit(:role, :school, :name, :email)
+    params.require(:user).permit(:role, :school, :name, :username, :email)
   end
 end

@@ -11,6 +11,11 @@
     <%= f.text_field :name, class: "form-control" %>
   </div>
 
+  <div class="form-group">
+    <%= f.label :username, class: "control-label" %>
+    <%= f.text_field :username, class: "form-control" %>
+  </div>
+
   <fieldset>
     <legend class="control-label">Role</legend>
     <% User.roles.keys.each do |role| %>
