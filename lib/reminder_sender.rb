@@ -24,9 +24,9 @@ module ReminderSender
 
   def users
     if Article.exists?
-      User.where.not(role: User.roles[:admin])
+      User.confirmed.where.not(role: User.roles[:admin])
     else
-      User.where(role: User.roles.values_at(:grad, :control))
+      User.confirmed.where(role: User.roles.values_at(:grad, :control))
     end
   end
 end

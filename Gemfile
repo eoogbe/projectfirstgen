@@ -49,7 +49,6 @@ gem 'formtastic-bootstrap'
 gem 'local_time'
 gem 'pundit'
 gem 'puma'
-gem 'whenever', require: false
 gem 'pg_search'
 gem 'addressable'
 gem 'font-awesome-sass', '~> 4.4.0'

@@ -1,9 +1,9 @@
 class SandboxEmailInterceptor
   def self.delivering_email message
-    message.to = ["eoogbe@stanford.edu"]
+    message.to = [ENV["EMAIL_INTERCEPTING_RECIPIENT"]]
   end
 end
 
-if %w(development staging).include?(Rails.env)
+if ENV["EMAIL_INTERCEPTING_RECIPIENT"]
   ActionMailer::Base.register_interceptor(SandboxEmailInterceptor)
 end

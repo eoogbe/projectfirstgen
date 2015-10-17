@@ -16,6 +16,10 @@ class User < ActiveRecord::Base
   validates_presence_of :school, unless: :admin?
   validates_uniqueness_of :username
 
+  def self.confirmed
+    where.not(confirmed_at: nil)
+  end
+
   def current_articles
     articles.where("created_at > ?", DateTime.now.beginning_of_month)
   end
