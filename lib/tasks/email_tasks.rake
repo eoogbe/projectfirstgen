@@ -7,5 +7,5 @@ task unanswered_notification: :environment do
 end
 
 task reminder_emails: :environment do
-  ReminderSender.send
+  ReminderSender.send if Date.today.sunday?
 end
