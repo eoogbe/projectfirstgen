@@ -18,7 +18,7 @@
       <%= button_to "delete", admin_user_path(user), method: :delete,
           data: { confirm: "Are you sure?" }, class: "btn-link" %>
     <% end %>
-    <% unless user.confirmed? %>
+    <% unless user.accepted_or_not_invited? || user.confirmed? %>
       <%= button_to "confirm", admin_user_confirmation_path(user), class: "btn-link" %>
     <% end %>
   </td>

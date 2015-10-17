@@ -1,6 +1,6 @@
 <% provide(:title, "Edit User") %>
 
-<%= form_for user do |f| %>
+<%= form_for user, url: admin_user_path(user) do |f| %>
   <div class="form-group">
     <%= f.label :email, class: "control-label" %>
     <%= f.email_field :email, autofocus: true, class: "form-control" %>
