@@ -36,6 +36,13 @@ class User < ActiveRecord::Base
     raffle_entries.find_by("created_at > ?", DateTime.now.beginning_of_month)
   end
 
+  def articles_viewed
+    Article
+      .joins(:impressions)
+      .where(impressions: { user_id: id })
+      .order("impressions.created_at DESC")
+  end
+
   def article_raffle_eligible?
     grad? && num_articles_needed_for_raffle <= 0 && current_raffle_entry.nil?
   end
@@ -60,6 +67,10 @@ class User < ActiveRecord::Base
 
   def num_questions_needed_for_raffle
     NUM_PUBLICATIONS_FOR_RAFFLE - current_questions.count
+  end
+
+  def article_impression_count
+    Impression.where(impressionable: articles).count
   end
 
   private

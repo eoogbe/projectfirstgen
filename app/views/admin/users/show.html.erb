@@ -59,6 +59,20 @@
           <% end %>
         </td>
       </tr>
+      <tr>
+        <th scope="row">Blogs viewed</th>
+        <td>
+          <% if user.articles_viewed.exists? %>
+            <ol class="list-unstyled">
+              <% user.articles_viewed.each do |article| %>
+                <li><%= link_to article.title, article %></li>
+              <% end %>
+            </ol>
+          <% else %>
+            none
+          <% end %>
+        </td>
+      </tr>
     </tbody>
   </table>
 </div>

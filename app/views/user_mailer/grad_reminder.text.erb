@@ -1,6 +1,9 @@
 Hi <%= @user.name %>,
 
 Just sending a friendly reminder that you need <%= pluralize(@user.num_articles_needed_for_raffle, "more blogs") %> until you are eligible for the monthly raffle.
+<% if @user.article_impression_count > 0 %>
+So far, your articles have influenced <%= pluralize(@user.article_impression_count, "person") %>. Every person you influence counts!
+<% end %>
 Post another blog: <%= new_article_url %>
 
 Best wishes,

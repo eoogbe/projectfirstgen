@@ -51,6 +51,7 @@ class ArticlesController < ApplicationController
   def show
     self.article = Article.friendly.find(params[:id])
     authorize article
+    impressionist(article)
   end
 
   def destroy

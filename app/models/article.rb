@@ -1,6 +1,7 @@
 class Article < ActiveRecord::Base
   extend FriendlyId
   include PgSearch
+  is_impressionable
   enum status: [:pending, :approved]
   friendly_id :title, use: :slugged
   pg_search_scope :search_by_title_or_text, against: { title: "A", text: "B" },
