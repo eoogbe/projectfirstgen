@@ -38,4 +38,12 @@ RSpec.describe Admin::UsersController do
     Then { expect(response).to redirect_to admin_users_path }
     Then { !User.exists?(id: user.id) }
   end
+
+  describe "GET #show" do
+    Given(:user) { create(:user) }
+    When(:response) { get :show, id: user.id }
+    Then { assigns(:user) == user }
+    Then { expect(response).to render_template :show }
+    Then { response.successful? }
+  end
 end

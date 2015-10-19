@@ -27,6 +27,10 @@ class Admin::UsersController < AdminController
     redirect_to admin_users_path
   end
 
+  def show
+    self.user = User.find(params[:id])
+  end
+
   private
   helper_attr :users, :user
 

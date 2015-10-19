@@ -23,7 +23,7 @@ Rails.application.routes.draw do
     resources :articles, only: :index
     resources :comments, only: :index
     resources :questions, only: :index
-    resources :users, except: [:new, :create, :show] do
+    resources :users, except: [:new, :create] do
       resource :confirmation, only: :create
     end
   end

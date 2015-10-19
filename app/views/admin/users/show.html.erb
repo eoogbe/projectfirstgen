@@ -1,0 +1,68 @@
+<% provide(:title, user.username) %>
+<% provide(:heading, user.username) %>
+
+<% unless current_user?(user) %>
+  <%= link_to "edit", edit_admin_user_path(user) %>
+  <%= button_to "delete", admin_user_path(user), method: :delete,
+      data: { confirm: "Are you sure?" }, class: "btn-link" %>
+<% end %>
+<% unless user.invited_to_sign_up? || user.confirmed? %>
+  <%= button_to "confirm", admin_user_confirmation_path(user), class: "btn-link" %>
+<% end %>
+
+<div class="table-responsive">
+  <table class="table">
+    <tbody>
+      <tr>
+        <th scope="row">Username</th>
+        <td><%= user.username %></td>
+      </tr>
+      <tr>
+        <th scope="row">Name</th>
+        <td><%= user.name %></td>
+      </tr>
+      <tr>
+        <th scope="row">Email</th>
+        <td><%= user.email %></td>
+      </tr>
+      <tr>
+        <th scope="row">Role</th>
+        <td><%= user.role %></td>
+      </tr>
+      <tr>
+        <th scope="row">Status</th>
+        <td><%= user.confirmed? ? "active" : "inactive" %></td>
+      </tr>
+      <% if policy(Article.new).create? %>
+        <tr>
+          <th scope="row">Blogs</th>
+          <td><%= user.articles.count %></td>
+        </tr>
+      <% end %>
+      <tr>
+        <th scope="row"><% if user.control? %>Control <% end %>Questions</th>
+        <td><%= user.control? ? user.comments.count : user.questions.count %></td>
+      </tr>
+      <tr>
+        <th scope="row">IP address</th>
+        <td><%= user.last_sign_in_ip %></td>
+      </tr>
+      <tr>
+        <th scope="row">Sign in count</th>
+        <td><%= user.sign_in_count %></td>
+      </tr>
+      <tr>
+        <th scope="row">Last signed in at</th>
+        <td>
+          <% if user.last_sign_in_at %>
+            <%= local_time user.last_sign_in_at %>
+          <% end %>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p class="clearfix">
+  <%= link_to "back to users", admin_users_path, class: "pull-right" %>
+</p>
