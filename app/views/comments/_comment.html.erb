@@ -2,7 +2,7 @@
   <header>
     <div>
       <p><%= local_time comment.created_at %></p>
-      <% if policy(comment).update? %>
+      <% if policy(comment).edit? %>
         <p><%= link_to "edit", edit_comment_path(comment) %></p>
       <% end %>
       <% if policy(comment).approve? %>
@@ -30,6 +30,6 @@
         </div>
       </section>
     <% end %>
-    <%= link_to "reply", new_comment_reply_path(comment), remote: true, class: "reply-link" %>
+    <%= link_to "reply", new_comment_reply_path(comment), remote: true, class: "reply-link" if policy(comment).new? %>
   <% end %>
 </article>

@@ -11,7 +11,8 @@ class ArticleAuthorizer < ApplicationAuthorizer
   end
 
   def create?
-    user && (user.grad? || user.admin?)
+    # user && (user.grad? || user.admin?)
+    admin?
   end
 
   def update?

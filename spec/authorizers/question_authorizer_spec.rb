@@ -7,9 +7,14 @@ RSpec.describe QuestionAuthorizer do
   subject { described_class }
 
   permissions :create?, :new? do
-    it "grants access when user is an control" do
+    # it "grants access when user is an control" do
+    #   user = build(:control)
+    #   expect(subject).to permit(user, question)
+    # end
+
+    it "denies access when user is an control" do
       user = build(:control)
-      expect(subject).to permit(user, question)
+      expect(subject).not_to permit(user, question)
     end
 
     it "denies access when user is a grad" do

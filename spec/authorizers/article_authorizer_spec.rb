@@ -79,51 +79,30 @@ RSpec.describe ArticleAuthorizer do
     end
   end
 
-  permissions :create?, :new? do
-    it "grants access when user is a grad" do
-      user = build(:grad)
-      expect(subject).to permit(user, article)
-    end
-
-    it "grants access when user is an admin" do
-      user = build(:admin)
-      expect(subject).to permit(user, article)
-    end
-
-    it "denies access when user is an undergrad" do
-      user = build(:user)
-      expect(subject).not_to permit(user, article)
-    end
-
-    it "denies access when user is a control" do
-      user = build(:control)
-      expect(subject).not_to permit(user, article)
-    end
-  end
-
-  permissions :update?, :edit? do
-    it "grants access when user is an admin" do
-      user = build(:admin)
-      expect(subject).to permit(user, article)
-    end
-
-    it "denies access when user is an undergrad" do
-      user = build(:user)
-      expect(subject).not_to permit(user, article)
-    end
-
-    it "denies access when user is a grad" do
-      user = build(:grad)
-      expect(subject).not_to permit(user, article)
-    end
-
-    it "denies access when user is a control" do
-      user = build(:control)
-      expect(subject).not_to permit(user, article)
-    end
-  end
-
-  permissions :destroy? do
+  # permissions :create?, :new? do
+  #   it "grants access when user is a grad" do
+  #     user = build(:grad)
+  #     expect(subject).to permit(user, article)
+  #   end
+  #
+  #   it "grants access when user is an admin" do
+  #     user = build(:admin)
+  #     expect(subject).to permit(user, article)
+  #   end
+  #
+  #   it "denies access when user is an undergrad" do
+  #     user = build(:user)
+  #     expect(subject).not_to permit(user, article)
+  #   end
+  #
+  #   it "denies access when user is a control" do
+  #     user = build(:control)
+  #     expect(subject).not_to permit(user, article)
+  #   end
+  # end
+  #
+  # permissions :update?, :edit?, :destroy? do
+  permissions :update?, :edit?, :destroy?, :create?, :new? do
     it "grants access when user is an admin" do
       user = build(:admin)
       expect(subject).to permit(user, article)

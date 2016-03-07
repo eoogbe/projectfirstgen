@@ -13,7 +13,7 @@ RSpec.describe ArticlesController do
   end
 
   describe "GET #new" do
-    Given(:current_user) { create(:grad) }
+    Given(:current_user) { create(:admin) }
     When(:response) { get :new }
     Then { expect(assigns(:article)).to be_a_new Article }
     Then { expect(response).to render_template :new }
@@ -22,35 +22,35 @@ RSpec.describe ArticlesController do
 
   describe "POST #create" do
     When(:response) { post :create, article: article_attrs }
-    context "when current user is grad" do
-      Given(:current_user) { create(:grad) }
-      context "when valid" do
-        Given(:article_attrs) { attributes_for(:article).slice(:title, :text) }
-        Then { assigns(:article).persisted? }
-        Then { assigns(:article).pending? }
-        Then { expect(response).to redirect_to article_path(assigns(:article)) }
-        context "when articles needed to be eligible for raffle" do
-          Then { flash[:raffle].nil? }
-          Then { flash.notice.present? }
-        end
-        context "when raffle eligible" do
-          Given { create_pair(:article, author: current_user) }
-          Then { flash[:raffle] == true }
-          Then { flash.notice.nil? }
-        end
-        context "when already entered raffle" do
-          Given { create_list(:article, 3, author: current_user) }
-          Given { current_user.raffle_entries.create! }
-          Then { flash[:raffle].nil? }
-          Then { flash.notice.nil? }
-        end
-      end
-      context "when invalid" do
-        Given(:article_attrs) { { title: "", text: "" } }
-        Then { expect(assigns(:article)).to be_a_new Article }
-        Then { expect(response).to render_template :new }
-      end
-    end
+    # context "when current user is grad" do
+    #   Given(:current_user) { create(:grad) }
+    #   context "when valid" do
+    #     Given(:article_attrs) { attributes_for(:article).slice(:title, :text) }
+    #     Then { assigns(:article).persisted? }
+    #     Then { assigns(:article).pending? }
+    #     Then { expect(response).to redirect_to article_path(assigns(:article)) }
+    #     context "when articles needed to be eligible for raffle" do
+    #       Then { flash[:raffle].nil? }
+    #       Then { flash.notice.present? }
+    #     end
+    #     context "when raffle eligible" do
+    #       Given { create_pair(:article, author: current_user) }
+    #       Then { flash[:raffle] == true }
+    #       Then { flash.notice.nil? }
+    #     end
+    #     context "when already entered raffle" do
+    #       Given { create_list(:article, 3, author: current_user) }
+    #       Given { current_user.raffle_entries.create! }
+    #       Then { flash[:raffle].nil? }
+    #       Then { flash.notice.nil? }
+    #     end
+    #   end
+    #   context "when invalid" do
+    #     Given(:article_attrs) { { title: "", text: "" } }
+    #     Then { expect(assigns(:article)).to be_a_new Article }
+    #     Then { expect(response).to render_template :new }
+    #   end
+    # end
     context "when current user is admin" do
       Given(:current_user) { create(:admin) }
       Given(:article_attrs) { attributes_for(:article).slice(:title, :text) }

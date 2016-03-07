@@ -18,5 +18,5 @@
   <% else %>
     <p>You have not written any blogs this month</p>
   <% end %>
-  <p><%= link_to "New Blog", new_article_path %></p>
+  <p><%= link_to "New Blog", new_article_path if policy(Article).new? %></p>
 </section>

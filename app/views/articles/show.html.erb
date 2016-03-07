@@ -4,7 +4,7 @@
   <footer>
     <p>by <cite><%= article.author_name %></cite></p>
     <p>posted <%= local_date article.created_at %></p>
-    <% if policy(article).update? %>
+    <% if policy(article).edit? %>
       <p><%= link_to "edit", edit_article_path(article) %></p>
     <% end %>
     <% if policy(article).approve? %>
@@ -27,12 +27,14 @@
       <div id="comments">
         <%= render policy_scope(article.root_comments) %>
       </div>
-      <section id="new-comment-sec">
-        <h4>Ask a Question</h4>
-        <%= semantic_form_for [article, comment || article.comments.build], html: { role: "form" } do |f| %>
-          <%= render "comments/form", form: f %>
-        <% end %>
-      </section>
+      <% if policy(Comment).new? %>
+        <section id="new-comment-sec">
+          <h4>Ask a Question</h4>
+          <%= semantic_form_for [article, comment || article.comments.build], html: { role: "form" } do |f| %>
+            <%= render "comments/form", form: f %>
+          <% end %>
+        </section>
+      <% end %>
     </section>
   <% end %>
 </article>
